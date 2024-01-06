@@ -2,17 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ThiefType : MonoBehaviour
+public abstract class ThiefType
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    protected string thiefName;
+    public string ThiefName {  get { return thiefName; } }
+    protected int strength;
+    public int Strength { get { return strength; } }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public abstract void TakeAction();
 }
