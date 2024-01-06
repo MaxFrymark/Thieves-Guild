@@ -12,6 +12,8 @@ public class Neighborhood : MonoBehaviour
         
     NeighborhoodType neighborhoodType;
 
+    List<CriminalCard> criminalsInNeighborHood = new List<CriminalCard>();
+
     int currentCoins;
     int currentWealth;
     
@@ -24,6 +26,11 @@ public class Neighborhood : MonoBehaviour
         neighborhoodNameTextField.text = neighborhoodType.NeighborhoodName;
         UpdateCoinsTextField();
         UpdateWealthTextField();
+    }
+
+    public void AddCriminalToNeighborhood(CriminalCard criminal)
+    {
+        criminalsInNeighborHood.Add(criminal);
     }
 
     public void StartNewTurn()

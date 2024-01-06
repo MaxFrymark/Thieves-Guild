@@ -4,6 +4,6 @@ using UnityEngine;
 
 public class Player
 {
-    List<ThiefCard> hand;
+    List<CriminalCard> hand;
     int coins;
 }
