@@ -1,0 +1,4 @@
+repository "Thieves Guild@maxfrymark@cloud"
+  path "/"
+    br "/main"
+    co "/main"
