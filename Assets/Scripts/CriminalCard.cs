@@ -6,11 +6,7 @@ using UnityEngine.UI;
 
 public class CriminalCard : MonoBehaviour
 {
-    [SerializeField] TextMeshProUGUI criminalNameTextField;
-    [SerializeField] TextMeshProUGUI criminalTypeTextField;
-    [SerializeField] TextMeshProUGUI criminalTagsField;
-    [SerializeField] TextMeshProUGUI criminalDescriptionTextField;
-    [SerializeField] TextMeshProUGUI strengthTextField;
+    [SerializeField] CardUI cardUI;
     
     CriminalType criminalType;
     Player owner;
@@ -22,26 +18,7 @@ public class CriminalCard : MonoBehaviour
     public void AssignThiefType(CriminalType criminalType)
     {
         this.criminalType = criminalType;
-        criminalNameTextField.text = criminalType.CriminalName;
-        switch(criminalType)
-        {
-            case GuildMember:
-                criminalTypeTextField.text = "Member";
-                break;
-            case Agent:
-                criminalTypeTextField.text = "Agent";
-                break;
-        }
-        criminalDescriptionTextField.text = criminalType.CriminalDescription;
-        criminalTagsField.text = "";
-        if(criminalType.Tags.Count > 0)
-        {
-            foreach(var tag in criminalType.Tags)
-            {
-                criminalTagsField.text += tag.ToString();
-            }
-        }
-        strengthTextField.text = criminalType.Strength.ToString();
+        cardUI.SetUpCardUI(criminalType);
     }
 
     public void AssignOwner(Player owner)

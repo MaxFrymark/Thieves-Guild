@@ -28,3 +28,23 @@ public abstract class Agent : CriminalType
 {
 
 }
+
+public class Thief : GuildMember
+{
+    public Thief()
+    {
+        criminalName = "Thief";
+        strength = 2;
+        criminalDescription = "Steal 2 Coins Per Turn";
+    }
+
+    public override void OnPlay(Neighborhood neighborhood)
+    {
+        return;
+    }
+
+    public override void TakeAction(Neighborhood neighborhood)
+    {
+        return;
+    }
+}

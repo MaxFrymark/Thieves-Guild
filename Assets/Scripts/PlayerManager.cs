@@ -4,12 +4,17 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
+    [SerializeField] CardManager cardManager;
+    [SerializeField] Transform aiPlayerHandLocation;
+
     List<Player> players = new List<Player>();
     
     void Start()
     {
-        players.Add(new HumanPlayer());
-        players.Add(new AIPlayer());
+        HumanPlayer humanPlayer = new HumanPlayer();
+        humanPlayer.SetUpHumanPlayer();
+        players.Add(humanPlayer);
+        players.Add(new AIPlayer(aiPlayerHandLocation));
         SetUpPlayers();
     }
 
@@ -17,7 +22,16 @@ public class PlayerManager : MonoBehaviour
     {
         foreach(Player player in players)
         {
+            
+            
             player.AddCoins(3);
+            for(int i = 0; i < 2; i++)
+            {
+                Thief thief = new Thief();
+                CriminalCard card = cardManager.CreateCard();
+                card.AssignThiefType(thief);
+                player.AddCriminalToDen(card);
+            }
         }
     }
 }

@@ -4,8 +4,8 @@ using UnityEngine;
 
 public abstract class Player
 {
-    List<CriminalCard> den;
-    int coins;
+    protected List<CriminalCard> den = new List<CriminalCard>();
+    protected int coins;
 
     public virtual void AddCoins(int additionalCoins)
     {
