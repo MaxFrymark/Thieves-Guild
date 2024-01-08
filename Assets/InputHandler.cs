@@ -9,6 +9,8 @@ public class InputHandler : MonoBehaviour
     [SerializeField] HumanPlayer player;
     
     PlayerInputActions inputActions;
+
+    CardControl heldCard;
     
     void Start()
     {
@@ -22,10 +24,31 @@ public class InputHandler : MonoBehaviour
         inputActions.Enable();
         
         inputActions.Mouse.Click.performed += OnClick;
+        inputActions.Mouse.Click.canceled += OnMouseRelease;
     }
     
     private void OnClick(InputAction.CallbackContext context)
     {
+        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        
+        RaycastHit2D hit = Physics2D.Raycast(mousePosition, Vector2.up, 0.1f);
+        if(hit.collider != null)
+        {
+            if(hit.collider.gameObject.tag == "Card")
+            {
+                heldCard = hit.collider.GetComponent<CardControl>();
+                heldCard.PickUpCard();
+            }
+        }
+        
+    }
 
+    private void OnMouseRelease(InputAction.CallbackContext context)
+    {
+        if(heldCard != null)
+        {
+            heldCard.ReleaseCard();
+            heldCard = null;
+        }
     }
 }

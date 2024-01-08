@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Coin Counter
+  - Card
+  - Neighborhood
   layers:
   - Default
   - TransparentFX

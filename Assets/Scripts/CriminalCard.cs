@@ -7,6 +7,8 @@ using UnityEngine.UI;
 public class CriminalCard : MonoBehaviour
 {
     [SerializeField] CardUI cardUI;
+    [SerializeField] CardControl cardControl;
+    public CardControl CardControl {  get { return cardControl; } }
     
     CriminalType criminalType;
     Player owner;
@@ -49,6 +51,7 @@ public class CriminalCard : MonoBehaviour
 
     private void MoveToCity()
     {
+        
         currentLocation = Location.City;
     }
 
@@ -71,5 +74,10 @@ public class CriminalCard : MonoBehaviour
         currentLocation = Location.Deck;
         owner = null;
         currentNeighborhood = null;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Debug.Log("Card");
     }
 }

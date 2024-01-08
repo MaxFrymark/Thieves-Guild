@@ -21,12 +21,12 @@ public class HumanPlayerUI
         coinCounter.text = "Coins: " + coin;
     }
 
-    public bool AddCardToHand(GameObject card)
+    public bool AddCardToHand(CardControl card)
     {
         return playerHand.AddCardToHand(card);
     }
 
-    public void RemoveCardFromHand(GameObject card)
+    public void RemoveCardFromHand(CardControl card)
     {
         playerHand.RemoveCardFromHand(card);
     }

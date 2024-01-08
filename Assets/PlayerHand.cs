@@ -5,9 +5,9 @@ using UnityEngine;
 public class PlayerHand : MonoBehaviour
 {
     [SerializeField] Transform[] cardSlots;
-    GameObject[] hand = new GameObject[5];
+    CardControl[] hand = new CardControl[5];
 
-    public bool AddCardToHand(GameObject card)
+    public bool AddCardToHand(CardControl card)
     {
         for(int i = 0; i < hand.Length; i++)
         {
@@ -15,6 +15,7 @@ public class PlayerHand : MonoBehaviour
             {
                 hand[i] = card;
                 card.transform.position = cardSlots[i].transform.position;
+                card.SetOriginPoint(cardSlots[i]);
                 return true;
             }
         }
@@ -22,13 +23,14 @@ public class PlayerHand : MonoBehaviour
         return false;
     }
 
-    public void RemoveCardFromHand(GameObject card)
+    public void RemoveCardFromHand(CardControl card)
     {
         for(int i = 0;i < hand.Length;i++)
         {
             if (hand[i] == card)
             {
                 hand[i] = null;
+                card.SetOriginPoint(null);
                 return;
             }
         }

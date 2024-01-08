@@ -20,9 +20,15 @@ public class HumanPlayer : Player
 
     public override void AddCriminalToDen(CriminalCard criminal)
     {
-        if (ui.AddCardToHand(criminal.gameObject))
+        if (ui.AddCardToHand(criminal.CardControl))
         {
             base.AddCriminalToDen(criminal);
         }
+    }
+
+    public override void RemoveCriminalFromDen(CriminalCard criminal)
+    {
+        ui.RemoveCardFromHand(criminal.CardControl);
+        base.RemoveCriminalFromDen(criminal);
     }
 }

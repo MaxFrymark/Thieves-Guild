@@ -17,4 +17,9 @@ public abstract class Player
         criminal.AssignOwner(this);
         den.Add(criminal);
     }
+
+    public virtual void RemoveCriminalFromDen(CriminalCard criminal)
+    {
+        den.Remove(criminal);
+    }
 }
