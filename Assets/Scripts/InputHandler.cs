@@ -37,7 +37,7 @@ public class InputHandler : MonoBehaviour
             if(hit.collider.gameObject.tag == "Card")
             {
                 heldCard = hit.collider.GetComponent<CriminalCard>();
-                if (heldCard.CurrentLocation == CriminalCard.Location.Den && heldCard.Owner is HumanPlayer)
+                if (heldCard.GetCardStateLocation() == CardState.Location.Den && heldCard.Owner is HumanPlayer)
                 {
                     heldCard.PickUpCard();
                 }
