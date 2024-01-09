@@ -5,6 +5,7 @@ using UnityEngine;
 public class CardControl : MonoBehaviour
 {
     [SerializeField] CriminalCard card;
+    [SerializeField] Rigidbody2D rb;
     
     bool isPickedUp = false;
     Transform originPoint;
@@ -16,7 +17,7 @@ public class CardControl : MonoBehaviour
         if (isPickedUp)
         {
             Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            transform.position = new Vector2(mousePosition.x, mousePosition.y);
+            rb.MovePosition(new Vector2(mousePosition.x, mousePosition.y));
         }
     }
 
@@ -53,6 +54,7 @@ public class CardControl : MonoBehaviour
 
     private void PlayToNeighborhood(Neighborhood neighborhood)
     {
+        isPickedUp = false;
         transform.position = neighborhood.transform.position;
         card.AssignNeighborhood(neighborhood);
     }
@@ -80,10 +82,8 @@ public class CardControl : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("meow");
         if(collision.gameObject.tag == "Neighborhood")
         {
-            Debug.Log("hi");
             overlappingNeighborhoods.Add(collision.GetComponent<Neighborhood>());
         }
     }
@@ -95,4 +95,5 @@ public class CardControl : MonoBehaviour
             overlappingNeighborhoods.Remove(collision.GetComponent<Neighborhood>());
         }
     }
+
 }

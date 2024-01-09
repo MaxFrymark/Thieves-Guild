@@ -10,7 +10,7 @@ public class InputHandler : MonoBehaviour
     
     PlayerInputActions inputActions;
 
-    CardControl heldCard;
+    CriminalCard heldCard;
     
     void Start()
     {
@@ -36,8 +36,11 @@ public class InputHandler : MonoBehaviour
         {
             if(hit.collider.gameObject.tag == "Card")
             {
-                heldCard = hit.collider.GetComponent<CardControl>();
-                heldCard.PickUpCard();
+                heldCard = hit.collider.GetComponent<CriminalCard>();
+                if (heldCard.CurrentLocation == CriminalCard.Location.Den && heldCard.Owner is HumanPlayer)
+                {
+                    heldCard.PickUpCard();
+                }
             }
         }
         

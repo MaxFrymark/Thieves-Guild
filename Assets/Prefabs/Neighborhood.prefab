@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1910417617327801853}
   - component: {fileID: 8895309479220464439}
   - component: {fileID: 1138494491290817948}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Neighborhood UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -116,9 +116,9 @@ GameObject:
   - component: {fileID: 107096768761806572}
   - component: {fileID: 5834408782872274470}
   - component: {fileID: 1524733586669113490}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Neighborhood
-  m_TagString: Untagged
+  m_TagString: Neighborhood
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -185,7 +185,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -239,7 +239,7 @@ GameObject:
   - component: {fileID: 2262583189870699368}
   - component: {fileID: 5735657240593330035}
   - component: {fileID: 4019003545216771037}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Wealth
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -374,7 +374,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5497712825542922004}
   - component: {fileID: 9111257046003128265}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Neighborhood Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -461,7 +461,7 @@ GameObject:
   - component: {fileID: 1102592890990491123}
   - component: {fileID: 1031088577033521145}
   - component: {fileID: 7508356335095221974}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Coins
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -597,7 +597,7 @@ GameObject:
   - component: {fileID: 8398535646283767956}
   - component: {fileID: 9101695141267387140}
   - component: {fileID: 940397983648989262}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Neighborhood Name
   m_TagString: Untagged
   m_Icon: {fileID: 0}

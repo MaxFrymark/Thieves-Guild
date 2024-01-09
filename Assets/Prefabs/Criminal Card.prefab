@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4000320998819293483}
   - component: {fileID: 5229104132789359032}
   - component: {fileID: 5814786536174952199}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Strength
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -147,7 +147,7 @@ GameObject:
   - component: {fileID: 2318899836392400059}
   - component: {fileID: 6809573820563510660}
   - component: {fileID: 8473941462624438889}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Description
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -282,7 +282,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8816145340163888178}
   - component: {fileID: 294625320703311665}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Card Background
   m_TagString: Card
   m_Icon: {fileID: 0}
@@ -370,7 +370,7 @@ GameObject:
   - component: {fileID: 6131799402697012926}
   - component: {fileID: 6169308538054108303}
   - component: {fileID: 4705929140527173583}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Card UI
   m_TagString: Card
   m_Icon: {fileID: 0}
@@ -478,7 +478,7 @@ GameObject:
   - component: {fileID: 2024752438968325245}
   - component: {fileID: 3928729800197707392}
   - component: {fileID: 5738985082567697263}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Criminal Card
   m_TagString: Card
   m_Icon: {fileID: 0}
@@ -592,6 +592,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   card: {fileID: 4498186832210639537}
+  rb: {fileID: 5738985082567697263}
 --- !u!50 &5738985082567697263
 Rigidbody2D:
   serializedVersion: 4
@@ -600,7 +601,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4972470180480276715}
-  m_BodyType: 2
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -617,7 +618,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!1 &6033878953006766244
 GameObject:
@@ -630,7 +631,7 @@ GameObject:
   - component: {fileID: 7801255224698349985}
   - component: {fileID: 8134519883589566908}
   - component: {fileID: 4505273054165849257}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Criminal Type
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -766,7 +767,7 @@ GameObject:
   - component: {fileID: 1264820087531901231}
   - component: {fileID: 3316733879999779773}
   - component: {fileID: 7406969176989578662}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Tags
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -902,7 +903,7 @@ GameObject:
   - component: {fileID: 7215964694435404948}
   - component: {fileID: 3810047745405507229}
   - component: {fileID: 3225531098993372097}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Criminal Name
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -8,14 +8,19 @@ public class CriminalCard : MonoBehaviour
 {
     [SerializeField] CardUI cardUI;
     [SerializeField] CardControl cardControl;
+
     public CardControl CardControl {  get { return cardControl; } }
     
     CriminalType criminalType;
+
     Player owner;
+    public Player Owner { get { return owner; } }
+
     Neighborhood currentNeighborhood;
 
-    private enum Location { Deck, Den, City, Graveyard, Jail, Market}
+    public enum Location { Deck, Den, City, Graveyard, Jail, Market}
     private Location currentLocation = Location.Deck;
+    public Location CurrentLocation { get { return currentLocation; } }
 
     public void AssignThiefType(CriminalType criminalType)
     {
@@ -32,6 +37,7 @@ public class CriminalCard : MonoBehaviour
     public void AssignNeighborhood(Neighborhood neighborhood)
     {
         currentNeighborhood = neighborhood;
+        owner.RemoveCriminalFromDen(this);
         MoveToCity();
     }
 
@@ -51,7 +57,6 @@ public class CriminalCard : MonoBehaviour
 
     private void MoveToCity()
     {
-        
         currentLocation = Location.City;
     }
 
@@ -76,8 +81,13 @@ public class CriminalCard : MonoBehaviour
         currentNeighborhood = null;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    public void PickUpCard()
     {
-        Debug.Log("Card");
+        cardControl.PickUpCard();
+    }
+
+    public void ReleaseCard()
+    {
+        cardControl.ReleaseCard();
     }
 }
