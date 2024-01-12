@@ -21,7 +21,7 @@ public class CriminalCard : MonoBehaviour
 
     
 
-    public void AssignThiefType(CriminalType criminalType)
+    public void AssignCriminalType(CriminalType criminalType)
     {
         cardState = new CardState();
         this.criminalType = criminalType;
@@ -39,6 +39,16 @@ public class CriminalCard : MonoBehaviour
         currentNeighborhood = neighborhood;
         owner.RemoveCriminalFromDen(this);
         cardState.ChangeLocation(CardState.Location.City);
+    }
+
+    public void SendToMarket()
+    {
+        cardState.ChangeLocation(CardState.Location.Market);
+    }
+
+    public void SendToDeck()
+    {
+        cardState.ChangeLocation(CardState.Location.Deck);
     }
 
     public void PickUpCard()

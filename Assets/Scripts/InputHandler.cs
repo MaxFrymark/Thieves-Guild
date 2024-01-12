@@ -41,6 +41,17 @@ public class InputHandler : MonoBehaviour
                 {
                     heldCard.PickUpCard();
                 }
+
+                else if(heldCard.GetCardStateLocation() == CardState.Location.Market)
+                {
+                    Debug.Log("Bid");
+                    heldCard = null;
+                }
+
+                else
+                {
+                    heldCard = null;
+                }
             }
         }
         

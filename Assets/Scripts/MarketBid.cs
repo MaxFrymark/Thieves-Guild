@@ -4,14 +4,18 @@ using UnityEngine;
 
 public class MarketBid
 {
+    private CriminalCard card;
+    public CriminalCard Card { get { return card; } }
+    
     private Player playerMakingBid;
     public Player PlayerMakingBid { get { return playerMakingBid; } }
 
     private int currentBid;
     public int CurrentBid { get { return currentBid; } }
 
-    public MarketBid(Player playerMakingBid, int currentBid)
+    public MarketBid(CriminalCard card, Player playerMakingBid, int currentBid)
     {
+        this.card = card;
         this.playerMakingBid = playerMakingBid;
         currentBid = 1;
     }

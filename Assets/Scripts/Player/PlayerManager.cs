@@ -29,7 +29,7 @@ public class PlayerManager : MonoBehaviour
             {
                 Thief thief = new Thief();
                 CriminalCard card = cardManager.CreateCard();
-                card.AssignThiefType(thief);
+                card.AssignCriminalType(thief);
                 player.AddCriminalToDen(card);
             }
         }
