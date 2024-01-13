@@ -22,4 +22,9 @@ public abstract class Player
     {
         den.Remove(criminal);
     }
+
+    public virtual bool SpendCoin()
+    {
+        return false;
+    }
 }

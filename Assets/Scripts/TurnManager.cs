@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class TurnManager : MonoBehaviour
 {
+    [SerializeField] Market market;
+    
     public void EndTurn()
     {
         FastActions();
@@ -33,7 +35,7 @@ public class TurnManager : MonoBehaviour
 
     private void ResolveMarketBids()
     {
-
+        market.ResolveBids();
     }
 
     private void DealNewMarket()

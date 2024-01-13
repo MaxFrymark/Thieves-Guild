@@ -14,6 +14,7 @@ public class PlayerManager : MonoBehaviour
         HumanPlayer humanPlayer = new HumanPlayer();
         humanPlayer.SetUpHumanPlayer();
         players.Add(humanPlayer);
+        FindAnyObjectByType<InputHandler>().AssignHumanPlayer(humanPlayer);
         players.Add(new AIPlayer(aiPlayerHandLocation));
         SetUpPlayers();
     }

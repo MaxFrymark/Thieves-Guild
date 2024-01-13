@@ -12,7 +12,8 @@ public class CriminalCard : MonoBehaviour
 
     public CardControl CardControl {  get { return cardControl; } }
     
-    CriminalType criminalType;
+    private CriminalType criminalType;
+    public CriminalType CriminalType { get { return criminalType; } }
 
     Player owner;
     public Player Owner { get { return owner; } }

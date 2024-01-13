@@ -31,4 +31,16 @@ public class HumanPlayer : Player
         ui.RemoveCardFromHand(criminal.CardControl);
         base.RemoveCriminalFromDen(criminal);
     }
+
+    public override bool SpendCoin()
+    {
+        if(coins <= 0)
+        {
+            return false;
+        }
+
+        coins--;
+        ui.UpdateCoinCounter(coins);
+        return true;
+    }
 }

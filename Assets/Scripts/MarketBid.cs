@@ -13,11 +13,11 @@ public class MarketBid
     private int currentBid;
     public int CurrentBid { get { return currentBid; } }
 
-    public MarketBid(CriminalCard card, Player playerMakingBid, int currentBid)
+    public MarketBid(CriminalCard card, Player playerMakingBid)
     {
         this.card = card;
         this.playerMakingBid = playerMakingBid;
-        currentBid = 1;
+        currentBid = 0;
     }
 
     public void IncrementBid()

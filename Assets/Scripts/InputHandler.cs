@@ -6,11 +6,16 @@ using UnityEngine.InputSystem;
 
 public class InputHandler : MonoBehaviour
 {
-    [SerializeField] HumanPlayer player;
+    [SerializeField] Market market;
+    
+    HumanPlayer player;
     
     PlayerInputActions inputActions;
 
     CriminalCard heldCard;
+
+    private enum InputMode { Normal, Bidding }
+    private InputMode currentInputMode = InputMode.Normal;
     
     void Start()
     {
@@ -26,35 +31,52 @@ public class InputHandler : MonoBehaviour
         inputActions.Mouse.Click.performed += OnClick;
         inputActions.Mouse.Click.canceled += OnMouseRelease;
     }
+
+    public void AssignHumanPlayer(HumanPlayer player)
+    {
+        this.player = player;
+    }
     
     private void OnClick(InputAction.CallbackContext context)
     {
-        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        
-        RaycastHit2D hit = Physics2D.Raycast(mousePosition, Vector2.up, 0.1f);
-        if(hit.collider != null)
+        if (currentInputMode == InputMode.Normal)
         {
-            if(hit.collider.gameObject.tag == "Card")
+
+            RaycastHit2D hit = CheckMousePositionForCards();
+            if (hit.collider != null)
             {
-                heldCard = hit.collider.GetComponent<CriminalCard>();
-                if (heldCard.GetCardStateLocation() == CardState.Location.Den && heldCard.Owner is HumanPlayer)
+                if (hit.collider.gameObject.tag == "Card")
                 {
-                    heldCard.PickUpCard();
-                }
+                    heldCard = hit.collider.GetComponent<CriminalCard>();
+                    if (heldCard.GetCardStateLocation() == CardState.Location.Den && heldCard.Owner is HumanPlayer)
+                    {
+                        heldCard.PickUpCard();
+                    }
 
-                else if(heldCard.GetCardStateLocation() == CardState.Location.Market)
-                {
-                    Debug.Log("Bid");
-                    heldCard = null;
-                }
+                    else if (heldCard.GetCardStateLocation() == CardState.Location.Market)
+                    {
+                        market.OpenBidDisplay(heldCard, player);
+                        currentInputMode = InputMode.Bidding;
+                        heldCard = null;
+                    }
 
-                else
-                {
-                    heldCard = null;
+                    else
+                    {
+                        heldCard = null;
+                    }
                 }
             }
         }
-        
+    }
+
+    private Vector3 GetMousePosition()
+    {
+        return Camera.main.ScreenToWorldPoint(Input.mousePosition);
+    }
+
+    private RaycastHit2D CheckMousePositionForCards()
+    {
+        return Physics2D.Raycast(GetMousePosition(), Vector2.up, 0.1f);
     }
 
     private void OnMouseRelease(InputAction.CallbackContext context)
@@ -64,5 +86,10 @@ public class InputHandler : MonoBehaviour
             heldCard.ReleaseCard();
             heldCard = null;
         }
+    }
+
+    public void ReturnToNormalControl()
+    {
+        currentInputMode = InputMode.Normal;
     }
 }
