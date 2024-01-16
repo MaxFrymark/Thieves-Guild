@@ -5,9 +5,12 @@ using UnityEngine;
 public class TurnManager : MonoBehaviour
 {
     [SerializeField] Market market;
+    [SerializeField] CardManager cardManager;
+    [SerializeField] PlayerManager playerManager;
     
     public void EndTurn()
     {
+        SelectTargets();
         FastActions();
         Battles();
         ResolveCriminalPlacements();
@@ -16,6 +19,11 @@ public class TurnManager : MonoBehaviour
         AddCoinsToNeighborhoods();
         MoveGuard();
         StartNewTurn();
+    }
+
+    private void SelectTargets()
+    {
+
     }
 
     private void FastActions()
@@ -31,6 +39,7 @@ public class TurnManager : MonoBehaviour
     private void ResolveCriminalPlacements()
     {
 
+        playerManager.ClearPlayerActions();
     }
 
     private void ResolveMarketBids()
@@ -40,7 +49,8 @@ public class TurnManager : MonoBehaviour
 
     private void DealNewMarket()
     {
-
+        market.ClearMarket();
+        cardManager.SendCardsToMarket();
     }
 
     private void AddCoinsToNeighborhoods()

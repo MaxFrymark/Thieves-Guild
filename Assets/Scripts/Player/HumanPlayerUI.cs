@@ -4,16 +4,15 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HumanPlayerUI
+public class HumanPlayerUI : MonoBehaviour
 {
-    PlayerHand playerHand;
-    TextMeshProUGUI coinCounter;  
+    [SerializeField] PlayerHand playerHand;
+    [SerializeField] TextMeshProUGUI coinCounter;
+    private HumanPlayer humanPlayer;
     
-    public void SetUpUI()
+    public void SetUpUI(HumanPlayer humanPlayer)
     {
-        playerHand = GameObject.FindAnyObjectByType<PlayerHand>();
-        GameObject counter = GameObject.FindGameObjectWithTag("Coin Counter");
-        coinCounter = counter.GetComponent<TextMeshProUGUI>();
+        this.humanPlayer = humanPlayer;
     }
 
     public void UpdateCoinCounter(int coin)
@@ -29,5 +28,10 @@ public class HumanPlayerUI
     public void RemoveCardFromHand(CardControl card)
     {
         playerHand.RemoveCardFromHand(card);
+    }
+
+    public void CancelPlay()
+    {
+        humanPlayer.CancelPlay();
     }
 }

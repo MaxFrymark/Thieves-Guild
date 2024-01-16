@@ -6,10 +6,10 @@ public class HumanPlayer : Player
 {
     HumanPlayerUI ui;
 
-    public void SetUpHumanPlayer()
+    public void SetUpHumanPlayer(HumanPlayerUI humanPlayerUI)
     {
-        ui = new HumanPlayerUI();
-        ui.SetUpUI();
+        ui = humanPlayerUI;
+        ui.SetUpUI(this);
     }
 
     public override void AddCoins(int additionalCoins)
@@ -42,5 +42,15 @@ public class HumanPlayer : Player
         coins--;
         ui.UpdateCoinCounter(coins);
         return true;
+    }
+
+    public void CancelPlay()
+    {
+        if (cardPlays.Count > 0)
+        {
+            CardPlay canceledPlay = cardPlays[cardPlays.Count - 1];
+            cardPlays.Remove(canceledPlay);
+            AddCriminalToDen(canceledPlay.Card);
+        }
     }
 }

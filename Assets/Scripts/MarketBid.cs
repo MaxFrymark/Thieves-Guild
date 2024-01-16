@@ -12,6 +12,7 @@ public class MarketBid
 
     private int currentBid;
     public int CurrentBid { get { return currentBid; } }
+    private int bidLockedAt = 0;
 
     public MarketBid(CriminalCard card, Player playerMakingBid)
     {
@@ -27,11 +28,16 @@ public class MarketBid
 
     public bool DecrementBid()
     {
-        if(currentBid <= 0)
+        if(currentBid <= bidLockedAt)
         {
             return false;
         }
         currentBid--;
         return true;
+    }
+
+    public void LockBid()
+    {
+        bidLockedAt = currentBid;
     }
 }

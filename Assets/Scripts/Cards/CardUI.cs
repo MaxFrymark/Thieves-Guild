@@ -10,6 +10,7 @@ public class CardUI : MonoBehaviour
     [SerializeField] TextMeshProUGUI criminalTagsField;
     [SerializeField] TextMeshProUGUI criminalDescriptionTextField;
     [SerializeField] TextMeshProUGUI strengthTextField;
+    [SerializeField] TextMeshProUGUI influenceTextField;
 
     public void SetUpCardUI(CriminalType criminalType)
     {
@@ -18,9 +19,12 @@ public class CardUI : MonoBehaviour
         {
             case GuildMember:
                 criminalTypeTextField.text = "Member";
+                influenceTextField.gameObject.SetActive(true);
+                influenceTextField.text = criminalType.Influence.ToString();
                 break;
             case Agent:
                 criminalTypeTextField.text = "Agent";
+                influenceTextField.gameObject.SetActive(false);
                 break;
         }
         criminalDescriptionTextField.text = criminalType.CriminalDescription;

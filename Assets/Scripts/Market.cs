@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Market : MonoBehaviour
 {
+    [SerializeField] CardManager cardManager;
+    
     [SerializeField] Transform[] cardSlots;
     [SerializeField] MarketUI marketUI;
     [SerializeField] InputHandler inputHandler;
@@ -70,6 +72,13 @@ public class Market : MonoBehaviour
         {
             currentBids.Add(workingBid);
         }
+        else
+        {
+            if (currentBids.Contains(workingBid))
+            {
+                currentBids.Remove(workingBid);
+            }
+        }
         workingBid = null;
         inputHandler.ReturnToNormalControl();
     }
@@ -100,9 +109,7 @@ public class Market : MonoBehaviour
             foreach(MarketBid bid in currentBids)
             {
                 bidsToResolve.Add(bid);
-                
             }
-
             ResolveBids(bidsToResolve);
         }
     }
@@ -113,16 +120,98 @@ public class Market : MonoBehaviour
         {
             if (bidsToResolve.Count > 1)
             {
-                
+                CompareToOtherBids(bidsToResolve);
             }
 
             else
             {
-                SendCardToPlayer(currentBids[0]);
-                currentBids.Remove(bidsToResolve[0]);
-                bidsToResolve.RemoveAt(0);
+                PlayerWinsBid(bidsToResolve[0]);
+                bidsToResolve.Clear();
             }
         }
+    }
+
+    private void CompareToOtherBids(List<MarketBid> bidsToResolve)
+    {
+        MarketBid bidToResolve = bidsToResolve[0];
+        List<MarketBid> competingBids = new List<MarketBid>();
+        for(int i = 1; i < bidsToResolve.Count; i++)
+        {
+            if (bidsToResolve[i].PlayerMakingBid == bidToResolve.PlayerMakingBid)
+            {
+                competingBids.Add(bidsToResolve[i]);
+            }
+        }
+
+        if(competingBids.Count > 0)
+        {
+            PlayerWinsBid(bidToResolve);
+            bidsToResolve.Remove(bidToResolve);
+            ResolveBids(bidsToResolve);
+        }
+        else
+        {
+            competingBids.Add(bidToResolve);
+            ResolveCompetingBids(bidsToResolve, competingBids);
+        }
+    }
+
+    private void ResolveCompetingBids(List<MarketBid> bidsToResolve, List<MarketBid> competingBids)
+    {
+        int highestBid = 0;
+        foreach(MarketBid bid in competingBids)
+        {
+            if(bid.CurrentBid > highestBid)
+            {
+                highestBid = bid.CurrentBid;
+                bidsToResolve.Remove(bid);
+            }
+        }
+        List<MarketBid> highestBids = new List<MarketBid>();
+        foreach(MarketBid bid in competingBids)
+        {
+            if(bid.CurrentBid == highestBid)
+            {
+                highestBids.Add(bid);
+            }
+            else
+            {
+                PlayerLosesBid(bid);
+            }
+        }
+
+        if(highestBids.Count > 1)
+        {
+            foreach(MarketBid bid in highestBids)
+            {
+                LockBid(bid);
+            }
+        }
+
+        else
+        {
+            PlayerWinsBid(highestBids[0]);
+        }
+
+
+        ResolveBids(bidsToResolve);
+    }
+
+    private void PlayerWinsBid(MarketBid bid)
+    {
+        SendCardToPlayer(bid);
+        currentBids.Remove(bid);
+    }
+
+    private void PlayerLosesBid(MarketBid bid)
+    {
+        bid.PlayerMakingBid.AddCoins(bid.CurrentBid);
+        currentBids.Remove(bid);
+    }
+
+    private void LockBid(MarketBid bid)
+    {
+        bid.LockBid();
     }
 
     private void SendCardToPlayer(MarketBid bid)
@@ -145,5 +234,32 @@ public class Market : MonoBehaviour
     private void SendCardToPlayer(Player player, CriminalCard card)
     {
         player.AddCriminalToDen(card);
+    }
+
+    public void ClearMarket()
+    {
+        for(int i = 0; i < cardsInMarket.Length; i++)
+        {
+            if (cardsInMarket[i] != null)
+            {
+                if (!CheckIfCardHasActiveBid(cardsInMarket[i]))
+                {
+                    cardManager.ReturnCardToDeck(cardsInMarket[i]);
+                    cardsInMarket[i] = null;
+                }
+            }
+        }
+    }
+
+    private bool CheckIfCardHasActiveBid(CriminalCard card)
+    {
+        foreach(MarketBid bid in currentBids)
+        {
+            if(bid.Card == card)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }

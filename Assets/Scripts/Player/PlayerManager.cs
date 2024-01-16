@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
+    [SerializeField] HumanPlayerUI humanPlayerUI;
+    
     [SerializeField] CardManager cardManager;
     [SerializeField] Transform aiPlayerHandLocation;
 
@@ -12,7 +14,7 @@ public class PlayerManager : MonoBehaviour
     void Start()
     {
         HumanPlayer humanPlayer = new HumanPlayer();
-        humanPlayer.SetUpHumanPlayer();
+        humanPlayer.SetUpHumanPlayer(humanPlayerUI);
         players.Add(humanPlayer);
         FindAnyObjectByType<InputHandler>().AssignHumanPlayer(humanPlayer);
         players.Add(new AIPlayer(aiPlayerHandLocation));
@@ -33,6 +35,14 @@ public class PlayerManager : MonoBehaviour
                 card.AssignCriminalType(thief);
                 player.AddCriminalToDen(card);
             }
+        }
+    }
+
+    public void ClearPlayerActions()
+    {
+        foreach (Player player in players)
+        {
+            player.ClearPlays();
         }
     }
 }

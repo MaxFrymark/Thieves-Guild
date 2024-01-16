@@ -31,6 +31,13 @@ public class CardManager : MonoBehaviour
             card.AssignCriminalType(new Thief());
             card.transform.position = deckLocation.transform.position;
         }
+        for(int i = 0; i < 5; i++)
+        {
+            CriminalCard card = CreateCard();
+            deck.Add(card);
+            card.AssignCriminalType(new Assassin());
+            card.transform.position += deckLocation.transform.position;
+        }
     }
 
     public void SendCardsToMarket()
@@ -48,6 +55,7 @@ public class CardManager : MonoBehaviour
 
     public void ReturnCardToDeck(CriminalCard card)
     {
+        card.transform.position = deckLocation.position;
         card.SendToDeck();
         deck.Add(card);
     }

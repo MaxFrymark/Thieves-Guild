@@ -29,17 +29,27 @@ public class CriminalCard : MonoBehaviour
         cardUI.SetUpCardUI(criminalType);
     }
 
-    public void AssignOwner(Player owner)
+    private void AssignOwner(Player owner)
     {
         this.owner = owner;
-        cardState.ChangeLocation(CardState.Location.Den);
+        
     }
 
     public void AssignNeighborhood(Neighborhood neighborhood)
     {
         currentNeighborhood = neighborhood;
         owner.RemoveCriminalFromDen(this);
+        owner.AddCardPlay(new CardPlay(this, neighborhood));
         cardState.ChangeLocation(CardState.Location.City);
+    }
+
+    public void SendToDen(Player owner)
+    {
+        if(owner != this.Owner)
+        {
+            this.owner = owner;
+        }
+        cardState.ChangeLocation(CardState.Location.Den);
     }
 
     public void SendToMarket()

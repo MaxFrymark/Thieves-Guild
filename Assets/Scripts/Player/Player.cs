@@ -7,6 +7,8 @@ public abstract class Player
     protected List<CriminalCard> den = new List<CriminalCard>();
     protected int coins;
 
+    protected List<CardPlay> cardPlays = new List<CardPlay>();
+
     public virtual void AddCoins(int additionalCoins)
     {
         coins += additionalCoins;
@@ -14,7 +16,7 @@ public abstract class Player
 
     public virtual void AddCriminalToDen(CriminalCard criminal)
     {
-        criminal.AssignOwner(this);
+        criminal.SendToDen(this);
         den.Add(criminal);
     }
 
@@ -26,5 +28,39 @@ public abstract class Player
     public virtual bool SpendCoin()
     {
         return false;
+    }
+
+    public void AddCardPlay(CardPlay play)
+    {
+        cardPlays.Add(play);
+    }
+
+    public void SetTargetsForCardsToPlay()
+    {
+        foreach(CardPlay play in cardPlays)
+        {
+            
+        }
+    }
+
+    public void TakeFastActions()
+    {
+        foreach (CardPlay play in cardPlays)
+        {
+
+        }
+    }
+
+    public void TakeActions()
+    {
+        foreach (CardPlay play in cardPlays)
+        {
+
+        }
+    }
+
+    public void ClearPlays()
+    {
+        cardPlays.Clear();
     }
 }
