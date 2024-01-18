@@ -33,10 +33,35 @@ public class Market : MonoBehaviour
 
     public void OpenBidDisplay(CriminalCard cardToBidOn, Player biddingPlayer)
     {
+        workingBid = null;
         marketUI.SetBiddingDisplayActive(true);
         marketUI.SetUpDisplayCard(cardToBidOn);
-        SetUpWorkingBid(cardToBidOn, biddingPlayer);
+        foreach(MarketBid bid in currentBids)
+        {
+            if(cardToBidOn == bid.Card)
+            {
+                workingBid = bid;
+            }
+        }
+
+        if (workingBid == null)
+        {
+            SetUpWorkingBid(cardToBidOn, biddingPlayer);
+        }
+
         marketUI.UpdateDisplayCardBidCounter(workingBid.CurrentBid);
+    }
+
+    public void TakeBidFromAI(int cardIndex, int bidAmount, Player biddingPlayer)
+    {
+        workingBid = new MarketBid(cardsInMarket[cardIndex], biddingPlayer);
+        for(int i = 0; i < bidAmount; i++)
+        {
+            workingBid.PlayerMakingBid.SpendCoin();
+            workingBid.IncrementBid();
+        }
+        currentBids.Add(workingBid);
+        workingBid = null;
     }
 
     private void SetUpWorkingBid(CriminalCard cardToBidOn, Player biddingPlayer)
@@ -82,6 +107,8 @@ public class Market : MonoBehaviour
         workingBid = null;
         inputHandler.ReturnToNormalControl();
     }
+
+    
 
     public void IncreaseBidButtonPressed()
     {
@@ -137,13 +164,13 @@ public class Market : MonoBehaviour
         List<MarketBid> competingBids = new List<MarketBid>();
         for(int i = 1; i < bidsToResolve.Count; i++)
         {
-            if (bidsToResolve[i].PlayerMakingBid == bidToResolve.PlayerMakingBid)
+            if (bidsToResolve[i].Card == bidToResolve.Card)
             {
                 competingBids.Add(bidsToResolve[i]);
             }
         }
 
-        if(competingBids.Count > 0)
+        if(competingBids.Count == 0)
         {
             PlayerWinsBid(bidToResolve);
             bidsToResolve.Remove(bidToResolve);
@@ -158,6 +185,7 @@ public class Market : MonoBehaviour
 
     private void ResolveCompetingBids(List<MarketBid> bidsToResolve, List<MarketBid> competingBids)
     {
+        Debug.Log("Bids to Resolve: " + bidsToResolve.Count);
         int highestBid = 0;
         foreach(MarketBid bid in competingBids)
         {
@@ -172,10 +200,13 @@ public class Market : MonoBehaviour
         {
             if(bid.CurrentBid == highestBid)
             {
+                Debug.Log("High bid: " + bid.CurrentBid +", " + bid.PlayerMakingBid);
                 highestBids.Add(bid);
             }
             else
             {
+                Debug.Log("Low bid: " + bid.CurrentBid + ", " + bid.PlayerMakingBid);
+                bidsToResolve.Remove(bid);
                 PlayerLosesBid(bid);
             }
         }
@@ -184,6 +215,7 @@ public class Market : MonoBehaviour
         {
             foreach(MarketBid bid in highestBids)
             {
+                bidsToResolve.Remove(bid);
                 LockBid(bid);
             }
         }
@@ -199,18 +231,22 @@ public class Market : MonoBehaviour
 
     private void PlayerWinsBid(MarketBid bid)
     {
+        Debug.Log("Winner: " + bid.PlayerMakingBid);
         SendCardToPlayer(bid);
         currentBids.Remove(bid);
     }
 
     private void PlayerLosesBid(MarketBid bid)
     {
+        Debug.Log("Loser: " + bid.PlayerMakingBid);
+
         bid.PlayerMakingBid.AddCoins(bid.CurrentBid);
         currentBids.Remove(bid);
     }
 
     private void LockBid(MarketBid bid)
     {
+        Debug.Log("Locked");
         bid.LockBid();
     }
 

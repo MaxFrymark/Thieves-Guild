@@ -10,6 +10,7 @@ public class TurnManager : MonoBehaviour
     
     public void EndTurn()
     {
+        AITakesAction();
         SelectTargets();
         FastActions();
         Battles();
@@ -19,6 +20,11 @@ public class TurnManager : MonoBehaviour
         AddCoinsToNeighborhoods();
         MoveGuard();
         StartNewTurn();
+    }
+
+    private void AITakesAction()
+    {
+        playerManager.AITakesAction();
     }
 
     private void SelectTargets()

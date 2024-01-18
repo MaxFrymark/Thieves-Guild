@@ -45,4 +45,16 @@ public class PlayerManager : MonoBehaviour
             player.ClearPlays();
         }
     }
+
+    public void AITakesAction()
+    {
+        foreach(Player player in players)
+        {
+            if(player is AIPlayer)
+            {
+                AIPlayer aiPlayer = (AIPlayer)player;
+                aiPlayer.TakeAIAction();
+            }
+        }
+    }
 }

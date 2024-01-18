@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class AIPlayer : Player
 {
+    Market market;
     Transform handLocation;
 
     public AIPlayer(Transform handLocation)
     {
         this.handLocation = handLocation;
+        market = GameObject.FindAnyObjectByType<Market>();
     }
 
     public override void AddCriminalToDen(CriminalCard criminal)
@@ -18,5 +20,26 @@ public class AIPlayer : Player
             base.AddCriminalToDen(criminal);
             criminal.transform.position = handLocation.position;
         }
+    }
+
+    public void TakeAIAction()
+    {
+        if(coins > 2)
+        {
+            Debug.Log("AI Making Bid");
+            market.TakeBidFromAI(2, 2, this);
+        }
+        
+    }
+
+    public override bool SpendCoin()
+    {
+        if (coins <= 0)
+        {
+            return false;
+        }
+
+        coins--;
+        return true;
     }
 }
