@@ -36,19 +36,7 @@ public class Market : MonoBehaviour
         workingBid = null;
         marketUI.SetBiddingDisplayActive(true);
         marketUI.SetUpDisplayCard(cardToBidOn);
-        foreach(MarketBid bid in currentBids)
-        {
-            if(cardToBidOn == bid.Card)
-            {
-                workingBid = bid;
-            }
-        }
-
-        if (workingBid == null)
-        {
-            SetUpWorkingBid(cardToBidOn, biddingPlayer);
-        }
-
+        SetUpWorkingBid(cardToBidOn, biddingPlayer);
         marketUI.UpdateDisplayCardBidCounter(workingBid.CurrentBid);
     }
 
@@ -92,10 +80,9 @@ public class Market : MonoBehaviour
                 cardIndex = i;
             }
         }
-        marketUI.UpdateBidCounters(cardIndex, workingBid.CurrentBid);
-        if(workingBid.CurrentBid > 0)
+        if (workingBid.CurrentBid > 0)
         {
-            currentBids.Add(workingBid);
+            AddBidToList(workingBid);
         }
         else
         {
@@ -104,10 +91,18 @@ public class Market : MonoBehaviour
                 currentBids.Remove(workingBid);
             }
         }
+        marketUI.UpdateBidCounters(cardIndex, workingBid.CurrentBid);
         workingBid = null;
         inputHandler.ReturnToNormalControl();
     }
 
+    private void AddBidToList(MarketBid newBid)
+    {
+        if (!currentBids.Contains(newBid))
+        {
+            currentBids.Add(newBid);
+        }
+    }
     
 
     public void IncreaseBidButtonPressed()
