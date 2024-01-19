@@ -6,31 +6,33 @@ using UnityEngine.UI;
 
 public class Neighborhood : MonoBehaviour
 {
-    [SerializeField] TextMeshProUGUI neighborhoodNameTextField;
-    [SerializeField] TextMeshProUGUI coinsTextField;
-    [SerializeField] TextMeshProUGUI wealthTextField;
+    [SerializeField] NeighborhoodUI neighborhoodUI;
+    [SerializeField] NeighborhoodBorder neighborhoodBorder;
+
+    City city;
         
     NeighborhoodType neighborhoodType;
 
     List<CriminalCard> criminalsInNeighborHood = new List<CriminalCard>();
 
-    int currentCoins;
+    int currentCoins = 0;
     int currentWealth;
     
-    public void AssignNeighborhoodType(NeighborhoodType neighborhoodType)
+    public void AssignNeighborhoodType(City city, NeighborhoodType neighborhoodType)
     {
+        this.city = city;
         this.neighborhoodType = neighborhoodType;
         currentWealth = neighborhoodType.BaseWealth;
-        currentCoins = currentWealth;
+        UpdateCoinsForNewTurn();
 
-        neighborhoodNameTextField.text = neighborhoodType.NeighborhoodName;
-        UpdateCoinsTextField();
-        UpdateWealthTextField();
+        neighborhoodUI.UpdateNeighborhoodName(neighborhoodType.NeighborhoodName);
+        neighborhoodUI.UpdateWealthTextField(currentCoins);
     }
 
     public void AddCriminalToNeighborhood(CriminalCard criminal)
     {
         criminalsInNeighborHood.Add(criminal);
+        neighborhoodBorder.ReturnToBaseColor();
     }
 
     public void StartNewTurn()
@@ -38,18 +40,22 @@ public class Neighborhood : MonoBehaviour
         UpdateCoinsForNewTurn();
     }
 
-    private void UpdateCoinsForNewTurn()
+    public void UpdateCoinsForNewTurn()
     {
         currentCoins += currentWealth;
+        neighborhoodUI.UpdateCoinsTextField(currentCoins);
     }
 
-    private void UpdateCoinsTextField()
+    public void CardEnteringNeighborhoodCollider(CardControl card)
     {
-        coinsTextField.text = "Coins: " + currentCoins;
+        city.AddNeighborhoodToTrackingList(card, this);
     }
 
-    private void UpdateWealthTextField()
+    public void CardLeavingNeighborhoodCollider()
     {
-        wealthTextField.text = "Wealth: " + currentWealth;
+        city.RemoveNeighborhoodFromTrackingList(this);
     }
+
+    public void HighlightNeighborHood() => neighborhoodBorder.ChangeBorderColor(Color.yellow);
+    public void RemoveHighlightNeighborhood() => neighborhoodBorder.ReturnToBaseColor();
 }

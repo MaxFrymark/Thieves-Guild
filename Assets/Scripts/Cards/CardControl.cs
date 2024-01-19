@@ -1,16 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class CardControl : MonoBehaviour
 {
     [SerializeField] CriminalCard card;
     [SerializeField] Rigidbody2D rb;
     
-    bool isPickedUp = false;
-    Transform originPoint;
-
-    List<Neighborhood> overlappingNeighborhoods = new List<Neighborhood>();
+    private bool isPickedUp = false;
+    private Transform originPoint;
 
     private void Update()
     {
@@ -33,17 +32,10 @@ public class CardControl : MonoBehaviour
 
     public void ReleaseCard()
     {
-        if (overlappingNeighborhoods.Count > 0)
+        Neighborhood closestNeighborhood = City.Instance.GetNeighborhoodFromTracker();
+        if (closestNeighborhood != null)
         {
-            if(overlappingNeighborhoods.Count == 1)
-            {
-                PlayToNeighborhood(overlappingNeighborhoods[0]);
-            }
-
-            else
-            {
-                PlayToNeighborhood(FindClosestNeighborhood());
-            }
+            PlayToNeighborhood(closestNeighborhood);
         }
         else
         {
@@ -52,39 +44,21 @@ public class CardControl : MonoBehaviour
         }
     }
 
-    private void PlayToNeighborhood(Neighborhood neighborhood)
+    private void PlayToNeighborhood(Neighborhood closestNeighborhood)
     {
         isPickedUp = false;
-        transform.position = neighborhood.transform.position;
-        card.AssignNeighborhood(neighborhood);
+        transform.position = closestNeighborhood.transform.position;
+        card.AssignNeighborhood(closestNeighborhood);
+        closestNeighborhood = null;
     }
 
-    private Neighborhood FindClosestNeighborhood()
-    {
-        Neighborhood closestNeighborhood = null;
-        foreach(Neighborhood neighborhood in overlappingNeighborhoods)
-        {
-            if(closestNeighborhood == null)
-            {
-                closestNeighborhood = neighborhood;
-            }
-
-            else
-            {
-                if(Vector2.Distance(transform.position, closestNeighborhood.transform.position) > Vector2.Distance(transform.position, neighborhood.transform.position))
-                {
-                    closestNeighborhood = neighborhood;
-                }
-            }
-        }
-        return closestNeighborhood;
-    }
+    
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.gameObject.tag == "Neighborhood")
         {
-            overlappingNeighborhoods.Add(collision.GetComponent<Neighborhood>());
+            collision.GetComponent<Neighborhood>().CardEnteringNeighborhoodCollider(this);
         }
     }
 
@@ -92,7 +66,7 @@ public class CardControl : MonoBehaviour
     {
         if(collision.gameObject.tag == "Neighborhood")
         {
-            overlappingNeighborhoods.Remove(collision.GetComponent<Neighborhood>());
+            collision.GetComponent<Neighborhood>().CardLeavingNeighborhoodCollider();
         }
     }
 

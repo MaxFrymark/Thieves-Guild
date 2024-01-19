@@ -41,6 +41,7 @@ public class CriminalCard : MonoBehaviour
         owner.RemoveCriminalFromDen(this);
         owner.AddCardPlay(new CardPlay(this, neighborhood));
         cardState.ChangeLocation(CardState.Location.City);
+        neighborhood.AddCriminalToNeighborhood(this);
     }
 
     public void SendToDen(Player owner)

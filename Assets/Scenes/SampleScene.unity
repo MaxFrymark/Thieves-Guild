@@ -357,6 +357,7 @@ GameObject:
   m_Component:
   - component: {fileID: 349812853}
   - component: {fileID: 349812852}
+  - component: {fileID: 349812854}
   m_Layer: 0
   m_Name: City
   m_TagString: Untagged
@@ -376,6 +377,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fdf00473002849438c28d042c0236f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cardTracker: {fileID: 349812854}
 --- !u!4 &349812853
 Transform:
   m_ObjectHideFlags: 0
@@ -393,6 +395,18 @@ Transform:
   - {fileID: 1657175811}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &349812854
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 349812851}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6488e59d7c7f00748a99c7e9068e6a60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &380687470
 GameObject:
   m_ObjectHideFlags: 0
@@ -2719,6 +2733,7 @@ MonoBehaviour:
   market: {fileID: 142105065}
   cardManager: {fileID: 1627697962}
   playerManager: {fileID: 1127701061}
+  city: {fileID: 349812852}
 --- !u!1 &1556944951
 GameObject:
   m_ObjectHideFlags: 0
@@ -3969,7 +3984,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3489510418101598752, guid: 5faef2b79c331dc4f87c7de6adc100b2, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.8154716
+      value: -3.32
       objectReference: {fileID: 0}
     - target: {fileID: 3489510418101598752, guid: 5faef2b79c331dc4f87c7de6adc100b2, type: 3}
       propertyPath: m_LocalPosition.y

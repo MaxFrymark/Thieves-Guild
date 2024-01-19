@@ -7,6 +7,7 @@ public class TurnManager : MonoBehaviour
     [SerializeField] Market market;
     [SerializeField] CardManager cardManager;
     [SerializeField] PlayerManager playerManager;
+    [SerializeField] City city;
     
     public void EndTurn()
     {
@@ -61,7 +62,7 @@ public class TurnManager : MonoBehaviour
 
     private void AddCoinsToNeighborhoods()
     {
-
+        city.UpdateNeighborhoodCoins();
     }
 
     private void MoveGuard()
