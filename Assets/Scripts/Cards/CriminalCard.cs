@@ -27,6 +27,7 @@ public class CriminalCard : MonoBehaviour
         cardState = new CardState();
         this.criminalType = criminalType;
         cardUI.SetUpCardUI(criminalType);
+        criminalType.SetAttachedCard(this);
     }
 
     private void AssignOwner(Player owner)
@@ -80,4 +81,5 @@ public class CriminalCard : MonoBehaviour
 
     public void SetToPickedUpLayer() => cardUI.SetToPickedUpLayer();
     public void SetToBaseCardLayer() => cardUI.SetToBaseCardLayer();
+    public void SetCardImage(Sprite sprite) => cardUI.SetCardImage(sprite);
 }

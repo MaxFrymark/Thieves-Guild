@@ -6,6 +6,7 @@ using UnityEngine;
 public class CardUI : MonoBehaviour
 {
     [SerializeField] Canvas canvas;
+    [SerializeField] SpriteRenderer cardBackground;
     [SerializeField] SpriteRenderer cardImage;
     
     [SerializeField] TextMeshProUGUI criminalNameTextField;
@@ -39,21 +40,28 @@ public class CardUI : MonoBehaviour
         {
             foreach (var tag in criminalType.Tags)
             {
-                criminalTagsField.text += tag.ToString();
+                criminalTagsField.text += tag.ToString() + " ";
             }
         }
         strengthTextField.text = criminalType.Strength.ToString();
     }
 
+    public void SetCardImage(Sprite sprite)
+    {
+        cardImage.sprite = sprite;
+    }
+
     public void SetToPickedUpLayer()
     {
         canvas.sortingLayerName = pickedUpLayer;
+        cardBackground.sortingLayerName= pickedUpLayer;
         cardImage.sortingLayerName= pickedUpLayer;
     }
 
     public void SetToBaseCardLayer()
     {
         canvas.sortingLayerName = cardLayer;
+        cardBackground.sortingLayerName = cardLayer;
         cardImage.sortingLayerName = cardLayer;
     }
 
