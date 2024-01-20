@@ -28,6 +28,7 @@ public class CardControl : MonoBehaviour
     public void PickUpCard()
     {
         isPickedUp = true;
+        card.SetToPickedUpLayer();
     }
 
     public void ReleaseCard()
@@ -42,6 +43,8 @@ public class CardControl : MonoBehaviour
             isPickedUp = false;
             transform.position = originPoint.position;
         }
+        City.Instance.StopTrackingCard();
+        card.SetToBaseCardLayer();
     }
 
     private void PlayToNeighborhood(Neighborhood closestNeighborhood)
@@ -49,7 +52,7 @@ public class CardControl : MonoBehaviour
         isPickedUp = false;
         transform.position = closestNeighborhood.transform.position;
         card.AssignNeighborhood(closestNeighborhood);
-        closestNeighborhood = null;
+        
     }
 
     

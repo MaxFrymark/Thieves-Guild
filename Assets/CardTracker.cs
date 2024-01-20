@@ -67,4 +67,11 @@ public class CardTracker : MonoBehaviour
     {
         return closestNeighborhoodToTrackedCard;
     }
+
+    public void StopTrackingCard()
+    {
+        cardTracking = null;
+        neighborhoodsWithCardOverlapping.Clear();
+        City.Instance.HighlightNeighborhoodToPlayOn(null);
+    }
 }

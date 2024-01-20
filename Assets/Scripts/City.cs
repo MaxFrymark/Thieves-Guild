@@ -60,5 +60,5 @@ public class City : MonoBehaviour
 
     public void AddNeighborhoodToTrackingList(CardControl card, Neighborhood neighborhood) => cardTracker.AddNeighborhoodToTrackingList(card, neighborhood);
     public void RemoveNeighborhoodFromTrackingList(Neighborhood neighborhood) => cardTracker.RemoveNeighborhoodFromTrackingList(neighborhood);
-
+    public void StopTrackingCard() => cardTracker.StopTrackingCard();
 }

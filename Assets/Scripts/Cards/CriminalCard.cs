@@ -77,4 +77,7 @@ public class CriminalCard : MonoBehaviour
     {
         return cardState.CurrentLocation;
     }
+
+    public void SetToPickedUpLayer() => cardUI.SetToPickedUpLayer();
+    public void SetToBaseCardLayer() => cardUI.SetToBaseCardLayer();
 }

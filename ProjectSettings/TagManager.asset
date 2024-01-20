@@ -44,3 +44,18 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Background
+    uniqueID: 464799005
+    locked: 0
+  - name: Cards
+    uniqueID: 1594116895
+    locked: 0
+  - name: City
+    uniqueID: 357557691
+    locked: 0
+  - name: Picked Up Card
+    uniqueID: 3391336741
+    locked: 0
+  - name: UI
+    uniqueID: 1774006391
+    locked: 0

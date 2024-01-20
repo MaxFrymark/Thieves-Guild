@@ -5,12 +5,18 @@ using UnityEngine;
 
 public class CardUI : MonoBehaviour
 {
+    [SerializeField] Canvas canvas;
+    [SerializeField] SpriteRenderer cardImage;
+    
     [SerializeField] TextMeshProUGUI criminalNameTextField;
     [SerializeField] TextMeshProUGUI criminalTypeTextField;
     [SerializeField] TextMeshProUGUI criminalTagsField;
     [SerializeField] TextMeshProUGUI criminalDescriptionTextField;
     [SerializeField] TextMeshProUGUI strengthTextField;
     [SerializeField] TextMeshProUGUI influenceTextField;
+
+    private string cardLayer = "Cards";
+    private string pickedUpLayer = "Picked Up Card";
 
     public void SetUpCardUI(CriminalType criminalType)
     {
@@ -37,6 +43,18 @@ public class CardUI : MonoBehaviour
             }
         }
         strengthTextField.text = criminalType.Strength.ToString();
+    }
+
+    public void SetToPickedUpLayer()
+    {
+        canvas.sortingLayerName = pickedUpLayer;
+        cardImage.sortingLayerName= pickedUpLayer;
+    }
+
+    public void SetToBaseCardLayer()
+    {
+        canvas.sortingLayerName = cardLayer;
+        cardImage.sortingLayerName = cardLayer;
     }
 
 }
