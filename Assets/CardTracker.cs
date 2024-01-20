@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class CardTracker : MonoBehaviour
 {
@@ -42,6 +43,7 @@ public class CardTracker : MonoBehaviour
     private void FindClosestNeighborhood()
     {
         Neighborhood tempNeighborhood = null;
+
         foreach (Neighborhood neighborhood in neighborhoodsWithCardOverlapping)
         {
             if (tempNeighborhood == null)
@@ -55,13 +57,9 @@ public class CardTracker : MonoBehaviour
                 {
                     tempNeighborhood = neighborhood;
                 }
-                else
-                {
-                    neighborhood.CardLeavingNeighborhoodCollider();
-                }
             }
         }
-
+        
         closestNeighborhoodToTrackedCard = tempNeighborhood;
     }
 
