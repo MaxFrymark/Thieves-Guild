@@ -6,6 +6,11 @@ public class HumanPlayer : Player
 {
     HumanPlayerUI ui;
 
+    public HumanPlayer(Color playerColor) : base(playerColor)
+    {
+
+    }
+
     public void SetUpHumanPlayer(HumanPlayerUI humanPlayerUI)
     {
         ui = humanPlayerUI;

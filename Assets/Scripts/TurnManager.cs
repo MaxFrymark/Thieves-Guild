@@ -45,8 +45,8 @@ public class TurnManager : MonoBehaviour
 
     private void ResolveCriminalPlacements()
     {
-
         playerManager.ClearPlayerActions();
+        city.CriminalsAct();
     }
 
     private void ResolveMarketBids()

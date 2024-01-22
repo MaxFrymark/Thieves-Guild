@@ -82,4 +82,5 @@ public class CriminalCard : MonoBehaviour
     public void SetToPickedUpLayer() => cardUI.SetToPickedUpLayer();
     public void SetToBaseCardLayer() => cardUI.SetToBaseCardLayer();
     public void SetCardImage(Sprite sprite) => cardUI.SetCardImage(sprite);
+    public void TakeAction(Neighborhood neighborhood) => criminalType.TakeAction(neighborhood);
 }

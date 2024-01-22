@@ -226,15 +226,12 @@ public class Market : MonoBehaviour
 
     private void PlayerWinsBid(MarketBid bid)
     {
-        Debug.Log("Winner: " + bid.PlayerMakingBid);
         SendCardToPlayer(bid);
         currentBids.Remove(bid);
     }
 
     private void PlayerLosesBid(MarketBid bid)
     {
-        Debug.Log("Loser: " + bid.PlayerMakingBid);
-
         bid.PlayerMakingBid.AddCoins(bid.CurrentBid);
         currentBids.Remove(bid);
     }

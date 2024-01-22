@@ -27,7 +27,7 @@ public abstract class CriminalType
 
     
     public abstract void SetTarget();
-    public abstract void TakeAction();
+    public abstract void TakeAction(Neighborhood neighborhood);
 
     protected void LoadSpriteFromAddressables(string assetAddress)
     {
@@ -73,9 +73,9 @@ public class Thief : GuildMember
         return;
     }
 
-    public override void TakeAction()
+    public override void TakeAction(Neighborhood neighborhood)
     {
-        return;
+        neighborhood.StealFromNeighborhood(2, attachedCard);
     }
 }
 
@@ -93,5 +93,5 @@ public class Assassin : Agent
     }
 
     public override void SetTarget() { return; }
-    public override void TakeAction() { return; }
+    public override void TakeAction(Neighborhood neighborhood) { return; }
 }

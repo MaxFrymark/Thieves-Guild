@@ -9,6 +9,14 @@ public abstract class Player
 
     protected List<CardPlay> cardPlays = new List<CardPlay>();
 
+    private Color playerColor;
+    public Color PlayerColor {  get { return playerColor; } }
+
+    public Player(Color playerColor)
+    {
+        this.playerColor = playerColor;
+    }
+
     public virtual void AddCoins(int additionalCoins)
     {
         coins += additionalCoins;

@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class Neighborhood : MonoBehaviour
 {
+    [SerializeField] TextMeshProUGUI cardDisplayPrefab;
+
     [SerializeField] NeighborhoodUI neighborhoodUI;
     [SerializeField] NeighborhoodBorder neighborhoodBorder;
 
@@ -14,6 +16,7 @@ public class Neighborhood : MonoBehaviour
     NeighborhoodType neighborhoodType;
 
     List<CriminalCard> criminalsInNeighborHood = new List<CriminalCard>();
+    List<TextMeshProUGUI> cardsDisplayed = new List<TextMeshProUGUI>();
 
     int currentCoins = 0;
     int currentWealth;
@@ -33,6 +36,10 @@ public class Neighborhood : MonoBehaviour
     {
         criminalsInNeighborHood.Add(criminal);
         neighborhoodBorder.ReturnToBaseColor();
+        TextMeshProUGUI cardDisplay = Instantiate(cardDisplayPrefab, new Vector2(transform.position.x, transform.position.y - 2), Quaternion.identity, neighborhoodUI.transform);
+        cardDisplay.text = criminal.CriminalType.CriminalName;
+        cardDisplay.color = criminal.Owner.PlayerColor;
+        cardsDisplayed.Add(cardDisplay);
     }
 
     public void StartNewTurn()
@@ -54,6 +61,27 @@ public class Neighborhood : MonoBehaviour
     public void CardLeavingNeighborhoodCollider()
     {
         city.RemoveNeighborhoodFromTrackingList(this);
+    }
+
+    public void StealFromNeighborhood(int coinsToSteal, CriminalCard cardStealing)
+    {
+        for(int i = 0; i < coinsToSteal; i++)
+        {
+            if(currentCoins > 0)
+            {
+                currentCoins--;
+                cardStealing.Owner.AddCoins(1);
+            }
+        }
+        neighborhoodUI.UpdateCoinsTextField(currentCoins);
+    }
+
+    public void CriminalsAct()
+    {
+        foreach(CriminalCard card in criminalsInNeighborHood)
+        {
+            card.TakeAction(this);
+        }
     }
 
     public void HighlightNeighborHood() => neighborhoodBorder.ChangeBorderColor(Color.yellow);

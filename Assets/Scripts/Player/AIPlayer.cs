@@ -7,7 +7,7 @@ public class AIPlayer : Player
     Market market;
     Transform handLocation;
 
-    public AIPlayer(Transform handLocation)
+    public AIPlayer(Transform handLocation, Color playerColor) : base(playerColor)
     {
         this.handLocation = handLocation;
         market = GameObject.FindAnyObjectByType<Market>();
@@ -26,7 +26,6 @@ public class AIPlayer : Player
     {
         if(coins > 2)
         {
-            Debug.Log("AI Making Bid");
             market.TakeBidFromAI(2, 2, this);
         }
         

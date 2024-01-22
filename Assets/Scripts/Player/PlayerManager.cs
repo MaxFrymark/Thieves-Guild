@@ -13,11 +13,11 @@ public class PlayerManager : MonoBehaviour
     
     void Start()
     {
-        HumanPlayer humanPlayer = new HumanPlayer();
+        HumanPlayer humanPlayer = new HumanPlayer(Color.blue);
         humanPlayer.SetUpHumanPlayer(humanPlayerUI);
         players.Add(humanPlayer);
         FindAnyObjectByType<InputHandler>().AssignHumanPlayer(humanPlayer);
-        players.Add(new AIPlayer(aiPlayerHandLocation));
+        players.Add(new AIPlayer(aiPlayerHandLocation, Color.red));
         SetUpPlayers();
     }
 

@@ -169,6 +169,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f03437ff9a9baf4396aac767d842999, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cardDisplayPrefab: {fileID: 7664581097974477958, guid: 90d719b426bb1ea46831bac3511b9599, type: 3}
   neighborhoodUI: {fileID: 1446933513511803570}
   neighborhoodBorder: {fileID: 6297192008098802408}
 --- !u!61 &5834408782872274470
