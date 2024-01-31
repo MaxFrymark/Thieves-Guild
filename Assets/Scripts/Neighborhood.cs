@@ -6,17 +6,16 @@ using UnityEngine.UI;
 
 public class Neighborhood : MonoBehaviour
 {
-    [SerializeField] TextMeshProUGUI cardDisplayPrefab;
 
     [SerializeField] NeighborhoodUI neighborhoodUI;
     [SerializeField] NeighborhoodBorder neighborhoodBorder;
+    
 
     City city;
         
     NeighborhoodType neighborhoodType;
 
     List<CriminalCard> criminalsInNeighborHood = new List<CriminalCard>();
-    List<TextMeshProUGUI> cardsDisplayed = new List<TextMeshProUGUI>();
 
     int currentCoins = 0;
     int currentWealth;
@@ -36,10 +35,14 @@ public class Neighborhood : MonoBehaviour
     {
         criminalsInNeighborHood.Add(criminal);
         neighborhoodBorder.ReturnToBaseColor();
-        TextMeshProUGUI cardDisplay = Instantiate(cardDisplayPrefab, new Vector2(transform.position.x, transform.position.y - 2), Quaternion.identity, neighborhoodUI.transform);
-        cardDisplay.text = criminal.CriminalType.CriminalName;
-        cardDisplay.color = criminal.Owner.PlayerColor;
-        cardsDisplayed.Add(cardDisplay);
+        neighborhoodUI.AddCriminalToDisplay(criminal);
+    }
+
+    public void RemoveCriminalFromNeighborhood(CriminalCard criminal)
+    {
+        criminalsInNeighborHood.Remove(criminal);
+        criminal.SetNeighborhood(null);
+        neighborhoodUI.RemoveCriminalFromDisplay(criminal);
     }
 
     public void StartNewTurn()

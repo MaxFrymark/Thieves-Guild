@@ -18,7 +18,9 @@ public class CardManager : MonoBehaviour
 
     public CriminalCard CreateCard()
     {
-        CriminalCard card = Instantiate(criminalCardPrefab, transform);
+        CriminalCard card = ObjectPool.Instance.GetObjectFromPool("Card").GetComponent<CriminalCard>();
+        card.transform.SetParent(transform);
+        card.gameObject.SetActive(true);
         return card;
     }
 

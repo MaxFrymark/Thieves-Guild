@@ -66,6 +66,17 @@ public class City : MonoBehaviour
         }
     }
 
+    public void CancelPlay(CriminalCard card)
+    {
+        foreach(Neighborhood neighborhood in neighborhoods)
+        {
+            if(card.CurrentNeighborhood == neighborhood)
+            {
+                neighborhood.RemoveCriminalFromNeighborhood(card);
+            }
+        }
+    }
+
     public void AddNeighborhoodToTrackingList(CardControl card, Neighborhood neighborhood) => cardTracker.AddNeighborhoodToTrackingList(card, neighborhood);
     public void RemoveNeighborhoodFromTrackingList(Neighborhood neighborhood) => cardTracker.RemoveNeighborhoodFromTrackingList(neighborhood);
     public void StopTrackingCard() => cardTracker.StopTrackingCard();

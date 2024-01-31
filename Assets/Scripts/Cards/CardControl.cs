@@ -51,11 +51,9 @@ public class CardControl : MonoBehaviour
     {
         isPickedUp = false;
         transform.position = closestNeighborhood.transform.position;
-        card.AssignNeighborhood(closestNeighborhood);
+        card.SetNeighborhood(closestNeighborhood);
         
     }
-
-    
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

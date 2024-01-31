@@ -56,6 +56,7 @@ public class HumanPlayer : Player
             CardPlay canceledPlay = cardPlays[cardPlays.Count - 1];
             cardPlays.Remove(canceledPlay);
             AddCriminalToDen(canceledPlay.Card);
+            City.Instance.CancelPlay(canceledPlay.Card);
         }
     }
 }

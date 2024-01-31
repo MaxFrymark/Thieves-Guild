@@ -18,7 +18,8 @@ public class CriminalCard : MonoBehaviour
     Player owner;
     public Player Owner { get { return owner; } }
 
-    Neighborhood currentNeighborhood;
+    private Neighborhood currentNeighborhood;
+    public Neighborhood CurrentNeighborhood { get {  return currentNeighborhood; } }
 
     
 
@@ -36,9 +37,17 @@ public class CriminalCard : MonoBehaviour
         
     }
 
-    public void AssignNeighborhood(Neighborhood neighborhood)
+    public void SetNeighborhood(Neighborhood neighborhood)
     {
         currentNeighborhood = neighborhood;
+        if(neighborhood != null)
+        {
+            AssignNeighborhood(neighborhood);
+        }
+    }
+
+    private void AssignNeighborhood(Neighborhood neighborhood)
+    {
         owner.RemoveCriminalFromDen(this);
         owner.AddCardPlay(new CardPlay(this, neighborhood));
         cardState.ChangeLocation(CardState.Location.City);
