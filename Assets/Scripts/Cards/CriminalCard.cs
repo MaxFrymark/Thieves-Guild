@@ -73,23 +73,19 @@ public class CriminalCard : MonoBehaviour
         cardState.ChangeLocation(CardState.Location.Deck);
     }
 
-    public void PickUpCard()
-    {
-        cardControl.PickUpCard();
-    }
-
-    public void ReleaseCard()
-    {
-        cardControl.ReleaseCard();
-    }
 
     public CardState.Location GetCardStateLocation()
     {
         return cardState.CurrentLocation;
     }
 
+    public void PickUpCard() => cardControl.PickUpCard();
+
+    public void ReleaseCard() => cardControl.ReleaseCard();
+
     public void SetToPickedUpLayer() => cardUI.SetToPickedUpLayer();
     public void SetToBaseCardLayer() => cardUI.SetToBaseCardLayer();
     public void SetCardImage(Sprite sprite) => cardUI.SetCardImage(sprite);
     public void TakeAction(Neighborhood neighborhood) => criminalType.TakeAction(neighborhood);
+    public void PlayCardToNeighborhood(Neighborhood neighborhood) => cardControl.PlayToNeighborhood(neighborhood);
 }

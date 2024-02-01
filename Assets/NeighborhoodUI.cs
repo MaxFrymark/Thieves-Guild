@@ -12,6 +12,7 @@ public class NeighborhoodUI : MonoBehaviour
     [SerializeField] TextMeshProUGUI wealthTextField;
 
     [SerializeField] GridLayoutGroup playerCriminalDisplay;
+    [SerializeField] GridLayoutGroup opponentCriminalDisplay;
     List<DisplayForCardInNeighborhood> criminalsDisplayed = new List<DisplayForCardInNeighborhood>();
 
     
@@ -34,9 +35,22 @@ public class NeighborhoodUI : MonoBehaviour
     {
         DisplayForCardInNeighborhood criminalDisplay = ObjectPool.Instance.GetObjectFromPool("Neighborhood Display").GetComponent<DisplayForCardInNeighborhood>();
         criminalDisplay.gameObject.SetActive(true);
-        criminalDisplay.transform.SetParent(playerCriminalDisplay.transform);
+        AssignCriminalToDisplay(card, criminalDisplay);
         criminalsDisplayed.Add(criminalDisplay);
         criminalDisplay.SetUpDisplay(card);
+    }
+
+    private void AssignCriminalToDisplay(CriminalCard card, DisplayForCardInNeighborhood criminalDisplay)
+    {
+        if (card.Owner is HumanPlayer)
+        {
+            criminalDisplay.transform.SetParent(playerCriminalDisplay.transform);
+        }
+        else
+        {
+            criminalDisplay.transform.SetParent(opponentCriminalDisplay.transform);
+        }
+
     }
 
     public void RemoveCriminalFromDisplay(CriminalCard card)

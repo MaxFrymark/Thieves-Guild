@@ -41,7 +41,6 @@ public class InputHandler : MonoBehaviour
     {
         if (currentInputMode == InputMode.Normal)
         {
-
             RaycastHit2D hit = CheckMousePositionForCards();
             if (hit.collider != null)
             {

@@ -42,7 +42,10 @@ public class Market : MonoBehaviour
 
     public void TakeBidFromAI(int cardIndex, int bidAmount, Player biddingPlayer)
     {
-        workingBid = new MarketBid(cardsInMarket[cardIndex], biddingPlayer);
+        if (!CheckIfAIBidExists(cardIndex, biddingPlayer))
+        {
+            workingBid = new MarketBid(cardsInMarket[cardIndex], biddingPlayer);
+        }
         for(int i = 0; i < bidAmount; i++)
         {
             workingBid.PlayerMakingBid.SpendCoin();
@@ -50,6 +53,19 @@ public class Market : MonoBehaviour
         }
         currentBids.Add(workingBid);
         workingBid = null;
+    }
+
+    private bool CheckIfAIBidExists(int cardIndex, Player biddingPlayer)
+    {
+        foreach(MarketBid bid in currentBids)
+        {
+            if(bid.PlayerMakingBid == biddingPlayer && bid.Card == cardsInMarket[cardIndex])
+            {
+                workingBid = bid;
+                return true;
+            }
+        }
+        return false;
     }
 
     private void SetUpWorkingBid(CriminalCard cardToBidOn, Player biddingPlayer)

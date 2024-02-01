@@ -47,19 +47,21 @@ public class CardControl : MonoBehaviour
         card.SetToBaseCardLayer();
     }
 
-    private void PlayToNeighborhood(Neighborhood closestNeighborhood)
+    public void PlayToNeighborhood(Neighborhood closestNeighborhood)
     {
         isPickedUp = false;
         transform.position = closestNeighborhood.transform.position;
         card.SetNeighborhood(closestNeighborhood);
-        
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.tag == "Neighborhood")
+        if (card.Owner is HumanPlayer)
         {
-            collision.GetComponent<Neighborhood>().CardEnteringNeighborhoodCollider(this);
+            if (collision.gameObject.tag == "Neighborhood")
+            {
+                collision.GetComponent<Neighborhood>().CardEnteringNeighborhoodCollider(this);
+            }
         }
     }
 

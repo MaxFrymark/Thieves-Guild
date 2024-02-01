@@ -28,7 +28,10 @@ public class AIPlayer : Player
         {
             market.TakeBidFromAI(2, 2, this);
         }
-        
+        if(den.Count > 0)
+        {
+            City.Instance.TakeCardPlayFromAI(den[0], 0);
+        }
     }
 
     public override bool SpendCoin()
