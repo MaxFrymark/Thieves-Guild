@@ -54,6 +54,8 @@ public class CriminalCard : MonoBehaviour
         neighborhood.AddCriminalToNeighborhood(this);
     }
 
+
+
     public void SendToDen(Player owner)
     {
         if(owner != this.Owner)
@@ -71,6 +73,13 @@ public class CriminalCard : MonoBehaviour
     public void SendToDeck()
     {
         cardState.ChangeLocation(CardState.Location.Deck);
+    }
+
+    public void SendToGraveyard()
+    {
+        owner = null;
+
+        cardState.ChangeLocation(CardState.Location.Graveyard);
     }
 
 

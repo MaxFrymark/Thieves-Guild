@@ -40,7 +40,7 @@ public class TurnManager : MonoBehaviour
 
     private void Battles()
     {
-
+        city.CheckCityForBattles();
     }
 
     private void ResolveCriminalPlacements()

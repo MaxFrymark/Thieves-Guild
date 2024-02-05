@@ -82,6 +82,34 @@ public class City : MonoBehaviour
         card.PlayCardToNeighborhood(neighborhoods[index]);
     }
 
+    public void CheckCityForBattles()
+    {
+        foreach(Neighborhood neighborhood in neighborhoods)
+        {
+            CheckNeighborhoodForBattle(neighborhood);
+        }
+    }
+
+    private void CheckNeighborhoodForBattle(Neighborhood neighborhood)
+    {
+        List<Player> listOfPlayersWithCriminalsInNeighborhood = new List<Player> ();
+        foreach(CriminalCard criminal in neighborhood.CriminalsInNeighborHood)
+        {
+            if (!criminal.CriminalType.Tags.Contains(CriminalType.CriminalTags.Stealth))
+            {
+                if (!listOfPlayersWithCriminalsInNeighborhood.Contains(criminal.Owner))
+                {
+                    listOfPlayersWithCriminalsInNeighborhood.Add(criminal.Owner);
+                }
+            }
+        }
+
+        if(listOfPlayersWithCriminalsInNeighborhood.Count > 1)
+        {
+            new Battle(neighborhood);
+        }
+    }
+
     public void AddNeighborhoodToTrackingList(CardControl card, Neighborhood neighborhood) => cardTracker.AddNeighborhoodToTrackingList(card, neighborhood);
     public void RemoveNeighborhoodFromTrackingList(Neighborhood neighborhood) => cardTracker.RemoveNeighborhoodFromTrackingList(neighborhood);
     public void StopTrackingCard() => cardTracker.StopTrackingCard();

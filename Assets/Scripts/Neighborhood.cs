@@ -15,7 +15,8 @@ public class Neighborhood : MonoBehaviour
         
     NeighborhoodType neighborhoodType;
 
-    List<CriminalCard> criminalsInNeighborHood = new List<CriminalCard>();
+    private List<CriminalCard> criminalsInNeighborHood = new List<CriminalCard>();
+    public List<CriminalCard> CriminalsInNeighborHood { get { return criminalsInNeighborHood; } }
 
     int currentCoins = 0;
     int currentWealth;
