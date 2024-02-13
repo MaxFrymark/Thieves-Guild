@@ -15,7 +15,19 @@ public class Market : MonoBehaviour
 
     MarketBid workingBid = null;
 
-    public bool DealCardToMarket(CriminalCard newCard)
+    public bool CheckIfSpaceInMarket()
+    {
+        foreach(CriminalCard card in cardsInMarket)
+        {
+            if(card == null)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public void DealCardToMarket(CriminalCard newCard)
     {
         for(int i = 0; i < cardsInMarket.Length; i++)
         {
@@ -23,12 +35,10 @@ public class Market : MonoBehaviour
             {
                 cardsInMarket[i] = newCard;
                 newCard.transform.position = cardSlots[i].transform.position;
-                newCard.SendToMarket();
-                return false;
+                newCard.transform.parent = transform;
+                return;
             }
         }
-
-        return true;
     }
 
     public void OpenBidDisplay(CriminalCard cardToBidOn, Player biddingPlayer)
@@ -277,7 +287,7 @@ public class Market : MonoBehaviour
 
     private void SendCardToPlayer(Player player, CriminalCard card)
     {
-        player.AddCriminalToDen(card);
+        card.SendToDen(player);
     }
 
     public void ClearMarket()

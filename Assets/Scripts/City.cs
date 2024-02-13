@@ -66,7 +66,7 @@ public class City : MonoBehaviour
         }
     }
 
-    public void CancelPlay(CriminalCard card)
+    public void RemoveCriminalFromNeighborhood(CriminalCard card)
     {
         foreach(Neighborhood neighborhood in neighborhoods)
         {
@@ -95,12 +95,9 @@ public class City : MonoBehaviour
         List<Player> listOfPlayersWithCriminalsInNeighborhood = new List<Player> ();
         foreach(CriminalCard criminal in neighborhood.CriminalsInNeighborHood)
         {
-            if (!criminal.CriminalType.Tags.Contains(CriminalType.CriminalTags.Stealth))
+            if (!listOfPlayersWithCriminalsInNeighborhood.Contains(criminal.Owner))
             {
-                if (!listOfPlayersWithCriminalsInNeighborhood.Contains(criminal.Owner))
-                {
-                    listOfPlayersWithCriminalsInNeighborhood.Add(criminal.Owner);
-                }
+                listOfPlayersWithCriminalsInNeighborhood.Add(criminal.Owner);
             }
         }
 

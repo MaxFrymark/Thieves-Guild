@@ -33,7 +33,7 @@ public class PlayerManager : MonoBehaviour
                 Thief thief = new Thief();
                 CriminalCard card = cardManager.CreateCard();
                 card.AssignCriminalType(thief);
-                player.AddCriminalToDen(card);
+                card.SendToDen(player);
             }
         }
     }

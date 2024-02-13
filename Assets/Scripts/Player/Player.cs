@@ -24,7 +24,6 @@ public abstract class Player
 
     public virtual void AddCriminalToDen(CriminalCard criminal)
     {
-        criminal.SendToDen(this);
         den.Add(criminal);
     }
 

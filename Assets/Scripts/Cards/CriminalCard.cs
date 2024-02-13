@@ -9,6 +9,7 @@ public class CriminalCard : MonoBehaviour
     [SerializeField] CardUI cardUI;
     [SerializeField] CardControl cardControl;
     CardState cardState;
+    public CardState CardState { get { return cardState; } }
 
     public CardControl CardControl {  get { return cardControl; } }
     
@@ -21,23 +22,19 @@ public class CriminalCard : MonoBehaviour
     private Neighborhood currentNeighborhood;
     public Neighborhood CurrentNeighborhood { get {  return currentNeighborhood; } }
 
-    
+    public void SetUpCardBasics()
+    {
+        cardState = new CardState(this);
+    }
 
     public void AssignCriminalType(CriminalType criminalType)
     {
-        cardState = new CardState();
         this.criminalType = criminalType;
         cardUI.SetUpCardUI(criminalType);
         criminalType.SetAttachedCard(this);
     }
 
-    private void AssignOwner(Player owner)
-    {
-        this.owner = owner;
-        
-    }
-
-    public void SetNeighborhood(Neighborhood neighborhood)
+    public void SendToNeighborhood(Neighborhood neighborhood)
     {
         currentNeighborhood = neighborhood;
         if(neighborhood != null)
@@ -48,13 +45,10 @@ public class CriminalCard : MonoBehaviour
 
     private void AssignNeighborhood(Neighborhood neighborhood)
     {
-        owner.RemoveCriminalFromDen(this);
         owner.AddCardPlay(new CardPlay(this, neighborhood));
-        cardState.ChangeLocation(CardState.Location.City);
+        cardState.ChangeLocation(CardState.Location.Neighborhood);
         neighborhood.AddCriminalToNeighborhood(this);
     }
-
-
 
     public void SendToDen(Player owner)
     {
@@ -63,6 +57,7 @@ public class CriminalCard : MonoBehaviour
             this.owner = owner;
         }
         cardState.ChangeLocation(CardState.Location.Den);
+        owner.AddCriminalToDen(this);
     }
 
     public void SendToMarket()
@@ -78,7 +73,6 @@ public class CriminalCard : MonoBehaviour
     public void SendToGraveyard()
     {
         owner = null;
-
         cardState.ChangeLocation(CardState.Location.Graveyard);
     }
 

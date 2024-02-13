@@ -42,7 +42,7 @@ public class Neighborhood : MonoBehaviour
     public void RemoveCriminalFromNeighborhood(CriminalCard criminal)
     {
         criminalsInNeighborHood.Remove(criminal);
-        criminal.SetNeighborhood(null);
+        criminal.SendToNeighborhood(null);
         neighborhoodUI.RemoveCriminalFromDisplay(criminal);
     }
 

@@ -9,7 +9,6 @@ public class Battle
 
     public Battle(Neighborhood battleField)
     {
-        Debug.LogWarning("Hi");
         this.battleField = battleField;
         CreateArmies();
     }
@@ -54,12 +53,14 @@ public class Battle
             {
                 armyStrengths[armyIndex] += criminal.CriminalType.Strength;
             }
+            armyIndex++;
         }
         CalculateWinner(armyStrengths);
     }
 
     private void CalculateWinner(List<int> armyStrengths)
     {
+        Debug.Log(armyStrengths.Count);
         int highestStrength = 0;
         foreach(int strength in armyStrengths)
         {
@@ -68,15 +69,16 @@ public class Battle
                 highestStrength = strength;
             }
         }
+        Debug.Log(highestStrength);
         List<List<CriminalCard>> armiesWithHighestStrength = new List<List<CriminalCard>>();
         for(int i = 0; i < armyStrengths.Count; i++)
         {
             if (armyStrengths[i] == highestStrength)
             {
+                Debug.Log(armyStrengths[i]);
                 armiesWithHighestStrength.Add(armiesInBattle[i]);
             }
         }
-
         foreach(List<CriminalCard> army in armiesInBattle)
         {
             if (!armiesWithHighestStrength.Contains(army))
