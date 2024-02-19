@@ -44,7 +44,7 @@ public class Market : MonoBehaviour
     public void OpenBidDisplay(CriminalCard cardToBidOn, Player biddingPlayer)
     {
         workingBid = null;
-        marketUI.SetBiddingDisplayActive(true);
+        //marketUI.SetBiddingDisplayActive(true);
         marketUI.SetUpDisplayCard(cardToBidOn);
         SetUpWorkingBid(cardToBidOn, biddingPlayer);
         marketUI.UpdateDisplayCardBidCounter(workingBid.CurrentBid);
@@ -97,7 +97,7 @@ public class Market : MonoBehaviour
 
     public void CloseBidDisplay()
     {
-        marketUI.SetBiddingDisplayActive(false);
+        //marketUI.SetBiddingDisplayActive(false);
         int cardIndex = 0;
         for(int i = 0; i < cardsInMarket.Length; i++)
         {

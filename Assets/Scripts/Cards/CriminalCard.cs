@@ -8,6 +8,7 @@ public class CriminalCard : MonoBehaviour
 {
     [SerializeField] CardUI cardUI;
     [SerializeField] CardControl cardControl;
+    [SerializeField] GameObject cardHighlight;
     CardState cardState;
     public CardState CardState { get { return cardState; } }
 
@@ -31,7 +32,6 @@ public class CriminalCard : MonoBehaviour
     {
         this.criminalType = criminalType;
         cardUI.SetUpCardUI(criminalType);
-        criminalType.SetAttachedCard(this);
     }
 
     public void SendToNeighborhood(Neighborhood neighborhood)
@@ -82,6 +82,11 @@ public class CriminalCard : MonoBehaviour
         return cardState.CurrentLocation;
     }
 
+    public void SetCardHighlight(bool isHighlightEnabled)
+    {
+        cardHighlight.SetActive(isHighlightEnabled);
+    }
+
     public void PickUpCard() => cardControl.PickUpCard();
 
     public void ReleaseCard() => cardControl.ReleaseCard();
@@ -91,4 +96,8 @@ public class CriminalCard : MonoBehaviour
     public void SetCardImage(Sprite sprite) => cardUI.SetCardImage(sprite);
     public void TakeAction(Neighborhood neighborhood) => criminalType.TakeAction(neighborhood);
     public void PlayCardToNeighborhood(Neighborhood neighborhood) => cardControl.PlayToNeighborhood(neighborhood);
+    public bool CheckIfAICanPlay(Neighborhood neighborhood) => criminalType.CheckIfAICanPlay(neighborhood);
+    public TargetRule GetTargetRule() => CriminalType.TargetRule;
+
+    
 }

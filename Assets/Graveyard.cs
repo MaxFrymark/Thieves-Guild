@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class Graveyard : MonoBehaviour
 {
-    List<CriminalCard> criminalsInGraveyard = new List<CriminalCard>();
+    private List<CriminalCard> criminalsInGraveyard = new List<CriminalCard>();
+    public List<CriminalCard> CriminalsInGraveyard {  get { return criminalsInGraveyard; } }
 
     public void AddCriminalToGraveyard(CriminalCard criminalCard)
     {
-        criminalCard.transform.position = transform.position;
         criminalCard.transform.parent = transform;
         criminalsInGraveyard.Add(criminalCard);
     }

@@ -58,4 +58,9 @@ public class HumanPlayer : Player
             canceledPlay.Card.SendToDen(canceledPlay.Card.Owner);
         }
     }
+
+    public void OpenTargeting(List<CriminalCard> targetList, CriminalCard card)
+    {
+        CardDisplayUI.Instance.DisplayCards(card.transform.parent, targetList, card.GetTargetRule());
+    }
 }

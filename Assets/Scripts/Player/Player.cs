@@ -8,6 +8,7 @@ public abstract class Player
     protected int coins;
 
     protected List<CardPlay> cardPlays = new List<CardPlay>();
+    
 
     private Color playerColor;
     public Color PlayerColor {  get { return playerColor; } }

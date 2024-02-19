@@ -60,7 +60,6 @@ public class Battle
 
     private void CalculateWinner(List<int> armyStrengths)
     {
-        Debug.Log(armyStrengths.Count);
         int highestStrength = 0;
         foreach(int strength in armyStrengths)
         {
@@ -69,13 +68,11 @@ public class Battle
                 highestStrength = strength;
             }
         }
-        Debug.Log(highestStrength);
         List<List<CriminalCard>> armiesWithHighestStrength = new List<List<CriminalCard>>();
         for(int i = 0; i < armyStrengths.Count; i++)
         {
             if (armyStrengths[i] == highestStrength)
             {
-                Debug.Log(armyStrengths[i]);
                 armiesWithHighestStrength.Add(armiesInBattle[i]);
             }
         }

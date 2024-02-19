@@ -9,7 +9,8 @@ public class City : MonoBehaviour
     
     [SerializeField] CardTracker cardTracker;
     
-    Neighborhood[] neighborhoods;
+    private Neighborhood[] neighborhoods;
+    public Neighborhood[] Neighborhoods { get { return neighborhoods; } }
 
     private void Awake()
     {

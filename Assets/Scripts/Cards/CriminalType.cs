@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using System.Threading.Tasks;
+using System;
 
 public abstract class CriminalType
 {
@@ -25,8 +26,31 @@ public abstract class CriminalType
     public Sprite ImageSprite { get { return imageSprite; } }
     protected string assetReference;
 
-    
-    public abstract void SetTarget();
+    protected TargetRule targetRule;
+    public TargetRule TargetRule { get { return targetRule; } }
+
+    public CriminalType(CriminalCard attachedCard)
+    {
+        this.attachedCard = attachedCard;
+    }
+
+    public abstract bool CheckIfAICanPlay(Neighborhood neighborhood);
+
+    public void GetTarget()
+    {
+        if(attachedCard.Owner is HumanPlayer)
+        {
+            GetTargetForHuman();
+        }
+        else
+        {
+            GetTargetForAI();
+        }
+    }
+    protected abstract void GetTargetForHuman();
+    protected abstract void GetTargetForAI();
+
+    public abstract void SetTarget<T>(T target);
     public abstract void TakeAction(Neighborhood neighborhood);
 
     protected void LoadSpriteFromAddressables(string assetAddress)
@@ -39,26 +63,21 @@ public abstract class CriminalType
         imageSprite = sprite.Result;
         attachedCard.SetCardImage(imageSprite);
     }
-
-    public void SetAttachedCard(CriminalCard card)
-    {
-        attachedCard = card;
-    }
 }
 
 public abstract class GuildMember : CriminalType
 {
-    
+    public GuildMember(CriminalCard attachedCard) : base(attachedCard) { }
 }
 
 public abstract class Agent : CriminalType
 {
-
+    public Agent(CriminalCard attachedCard) : base (attachedCard) { }
 }
 
 public class Thief : GuildMember
 {
-    public Thief()
+    public Thief(CriminalCard attachedCard) : base(attachedCard)
     {
         criminalName = "Thief";
         strength = 2;
@@ -67,8 +86,23 @@ public class Thief : GuildMember
         assetReference = "ThiefCardArt";
         LoadSpriteFromAddressables(assetReference);
     }
+    
+    public override bool CheckIfAICanPlay(Neighborhood neighborhood)
+    {
+        return true;
+    }
 
-    public override void SetTarget()
+    protected override void GetTargetForHuman()
+    {
+        return;
+    }
+
+    protected override void GetTargetForAI()
+    {
+        return;
+    }
+
+    public override void SetTarget<T>(T target)
     {
         return;
     }
@@ -81,7 +115,9 @@ public class Thief : GuildMember
 
 public class Assassin : Agent
 {
-    public Assassin()
+    CriminalCard assassinationTarget;
+
+    public Assassin(CriminalCard attachedCard) : base(attachedCard)
     {
         criminalName = "Assassin";
         strength = 3;
@@ -89,9 +125,70 @@ public class Assassin : Agent
         tags.Add(CriminalTags.Fast);
         tags.Add(CriminalTags.Stealth);
         assetReference = "AssassinCardArt";
+        targetRule = new TargetRule(1, "Select One Target To Kill", attachedCard);
         LoadSpriteFromAddressables(assetReference);
     }
 
-    public override void SetTarget() { return; }
-    public override void TakeAction(Neighborhood neighborhood) { return; }
+    public override bool CheckIfAICanPlay(Neighborhood neighborhood)
+    {
+        foreach(CriminalCard card in neighborhood.CriminalsInNeighborHood)
+        {
+            if(card.Owner != attachedCard.Owner)
+            {
+                return true;
+            }
+        }
+        Debug.Log(criminalName);
+        return false;
+    }
+
+    protected override void GetTargetForHuman()
+    {
+        List<CriminalCard> possibleTargets = new List<CriminalCard> ();
+        foreach(CriminalCard card in attachedCard.CurrentNeighborhood.CriminalsInNeighborHood)
+        {
+            if(card.Owner != attachedCard.Owner)
+            {
+                possibleTargets.Add(card);
+            }
+        }
+        
+        HumanPlayer owner = attachedCard.Owner as HumanPlayer;
+        owner.OpenTargeting(possibleTargets, attachedCard);
+    }
+
+    protected override void GetTargetForAI()
+    {
+        List<CriminalCard> possibleTargets = new List<CriminalCard>();
+        foreach(CriminalCard card in attachedCard.CurrentNeighborhood.CriminalsInNeighborHood)
+        {
+            if(card.Owner != attachedCard.Owner)
+            {
+                possibleTargets.Add(card);
+            }
+        }
+
+        if(possibleTargets.Count > 0)
+        {
+            SetTarget(possibleTargets);
+        }
+
+        else
+        {
+            Debug.Log("Invalid AI Play: No Targets");
+        }
+    }
+
+    public override void SetTarget<T>(T target)
+    {
+        if(target is List<CriminalCard>)
+        {
+            List<CriminalCard> targetList = target as List<CriminalCard>;
+            assassinationTarget = targetList[0];
+        }
+    }
+    public override void TakeAction(Neighborhood neighborhood)
+    {
+        assassinationTarget.SendToGraveyard();
+    }
 }

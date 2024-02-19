@@ -25,13 +25,11 @@ public class PlayerManager : MonoBehaviour
     {
         foreach(Player player in players)
         {
-            
-            
             player.AddCoins(3);
             for(int i = 0; i < 2; i++)
             {
-                Thief thief = new Thief();
                 CriminalCard card = cardManager.CreateCard();
+                Thief thief = new Thief(card);
                 card.AssignCriminalType(thief);
                 card.SendToDen(player);
             }

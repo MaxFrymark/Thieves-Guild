@@ -36,14 +36,14 @@ public class CardManager : MonoBehaviour
         {
             CriminalCard card = CreateCard();
             deck.Add(card);
-            card.AssignCriminalType(new Thief());
+            card.AssignCriminalType(new Thief(card));
             card.transform.position = deckLocation.transform.position;
         }
         for(int i = 0; i < 5; i++)
         {
             CriminalCard card = CreateCard();
             deck.Add(card);
-            card.AssignCriminalType(new Assassin());
+            card.AssignCriminalType(new Assassin(card));
             card.transform.position += deckLocation.transform.position;
         }
     }

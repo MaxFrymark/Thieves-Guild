@@ -6,6 +6,8 @@ using UnityEngine.InputSystem;
 
 public class InputHandler : MonoBehaviour
 {
+    [SerializeField] UIHandler uiHandler;
+    [SerializeField] CardDisplayUI cardDisplayUI;
     [SerializeField] Market market;
     
     HumanPlayer player;
@@ -14,7 +16,7 @@ public class InputHandler : MonoBehaviour
 
     CriminalCard heldCard;
 
-    private enum InputMode { Normal, Bidding }
+    private enum InputMode { Normal, Bidding, CardDisplay }
     private InputMode currentInputMode = InputMode.Normal;
     
     void Start()
@@ -39,14 +41,15 @@ public class InputHandler : MonoBehaviour
     
     private void OnClick(InputAction.CallbackContext context)
     {
-        if (currentInputMode == InputMode.Normal)
+        RaycastHit2D hit = CheckMousePositionForCards();
+        if (hit)
         {
-            RaycastHit2D hit = CheckMousePositionForCards();
-            if (hit.collider != null)
+            if (currentInputMode == InputMode.Normal)
             {
-                if (hit.collider.gameObject.tag == "Card")
+                CriminalCard cardAtClickPosition = GetCardFromClick(hit);
+                if (cardAtClickPosition != null)
                 {
-                    heldCard = hit.collider.GetComponent<CriminalCard>();
+                    heldCard = cardAtClickPosition;
                     if (heldCard.GetCardStateLocation() == CardState.Location.Den && heldCard.Owner is HumanPlayer)
                     {
                         heldCard.PickUpCard();
@@ -54,6 +57,7 @@ public class InputHandler : MonoBehaviour
 
                     else if (heldCard.GetCardStateLocation() == CardState.Location.Market)
                     {
+                        uiHandler.SwitchToBiddingUI();
                         market.OpenBidDisplay(heldCard, player);
                         currentInputMode = InputMode.Bidding;
                         heldCard = null;
@@ -64,9 +68,36 @@ public class InputHandler : MonoBehaviour
                         heldCard = null;
                     }
                 }
+
+                else if (hit.collider.gameObject.tag == "Graveyard")
+                {
+                    currentInputMode = InputMode.CardDisplay;
+                    uiHandler.SwitchToCardDisplayUI();
+                    Graveyard graveyard = hit.collider.gameObject.GetComponent<Graveyard>();
+                    cardDisplayUI.gameObject.SetActive(true);
+                    cardDisplayUI.DisplayCards(graveyard.transform, graveyard.CriminalsInGraveyard, null);
+                }
+            }
+
+            else if (currentInputMode == InputMode.CardDisplay)
+            {
+
             }
         }
     }
+
+    private CriminalCard GetCardFromClick(RaycastHit2D hit)
+    {
+        if (hit.collider != null)
+        {
+            if (hit.collider.gameObject.tag == "Card")
+            {
+                return hit.collider.GetComponent<CriminalCard>();
+            }
+        }
+        return null;
+    }
+
 
     private Vector3 GetMousePosition()
     {
@@ -90,5 +121,6 @@ public class InputHandler : MonoBehaviour
     public void ReturnToNormalControl()
     {
         currentInputMode = InputMode.Normal;
+        uiHandler.SwitchToMainUI(); ;
     }
 }

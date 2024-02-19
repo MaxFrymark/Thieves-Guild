@@ -30,7 +30,10 @@ public class AIPlayer : Player
         }
         if(den.Count > 0)
         {
-            City.Instance.TakeCardPlayFromAI(den[0], 0);
+            if (den[0].CheckIfAICanPlay(City.Instance.Neighborhoods[0]))
+            {
+                City.Instance.TakeCardPlayFromAI(den[0], 0);
+            }
         }
     }
 

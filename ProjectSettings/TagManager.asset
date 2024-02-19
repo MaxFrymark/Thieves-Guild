@@ -8,6 +8,8 @@ TagManager:
   - Card
   - Neighborhood
   - Neighborhood Display
+  - Graveyard
+  - Jail
   layers:
   - Default
   - TransparentFX
