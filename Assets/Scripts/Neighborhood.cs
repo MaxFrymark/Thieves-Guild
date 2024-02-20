@@ -80,13 +80,7 @@ public class Neighborhood : MonoBehaviour
         neighborhoodUI.UpdateCoinsTextField(currentCoins);
     }
 
-    public void CriminalsAct()
-    {
-        foreach(CriminalCard card in criminalsInNeighborHood)
-        {
-            card.TakeAction(this);
-        }
-    }
+    
 
     public void HighlightNeighborHood() => neighborhoodBorder.ChangeBorderColor(Color.yellow);
     public void RemoveHighlightNeighborhood() => neighborhoodBorder.ReturnToBaseColor();

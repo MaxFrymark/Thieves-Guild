@@ -51,7 +51,7 @@ public abstract class CriminalType
     protected abstract void GetTargetForAI();
 
     public abstract void SetTarget<T>(T target);
-    public abstract void TakeAction(Neighborhood neighborhood);
+    public abstract void TakeAction();
 
     protected void LoadSpriteFromAddressables(string assetAddress)
     {
@@ -107,9 +107,9 @@ public class Thief : GuildMember
         return;
     }
 
-    public override void TakeAction(Neighborhood neighborhood)
+    public override void TakeAction()
     {
-        neighborhood.StealFromNeighborhood(2, attachedCard);
+        attachedCard.CurrentNeighborhood.StealFromNeighborhood(2, attachedCard);
     }
 }
 
@@ -187,7 +187,7 @@ public class Assassin : Agent
             assassinationTarget = targetList[0];
         }
     }
-    public override void TakeAction(Neighborhood neighborhood)
+    public override void TakeAction()
     {
         assassinationTarget.SendToGraveyard();
     }

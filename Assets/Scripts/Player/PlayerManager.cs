@@ -55,4 +55,27 @@ public class PlayerManager : MonoBehaviour
             }
         }
     }
+
+    public void PlayersTakeFastActions()
+    {
+        foreach(Player player in players)
+        {
+            player.TakeFastActions();
+        }
+    }
+
+    public void PlayersTakeActions()
+    {
+        foreach(Player player in players)
+        {
+            player.TakeActions();
+        }
+    }
+
+    public void ChangeInitiative()
+    {
+        Player playerToMoveToEndOfQueue = players[0];
+        players.Remove(playerToMoveToEndOfQueue);
+        players.Add(playerToMoveToEndOfQueue);
+    }
 }

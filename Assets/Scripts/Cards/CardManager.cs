@@ -81,6 +81,7 @@ public class CardManager : MonoBehaviour
                 card.Owner.RemoveCriminalFromDen(card);
                 break;
             case CardState.Location.Neighborhood:
+                card.Owner.RemoveFromActiveCriminals(card);
                 City.Instance.RemoveCriminalFromNeighborhood(card);
                 break;
             case CardState.Location.Market:
@@ -102,6 +103,7 @@ public class CardManager : MonoBehaviour
             case CardState.Location.Den:
                 break;
             case CardState.Location.Neighborhood:
+                card.Owner.AddToActiveCriminals(card);
                 break;
             case CardState.Location.Market:
                 market.DealCardToMarket(card);

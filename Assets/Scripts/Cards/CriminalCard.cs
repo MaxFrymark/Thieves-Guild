@@ -72,8 +72,8 @@ public class CriminalCard : MonoBehaviour
 
     public void SendToGraveyard()
     {
-        owner = null;
         cardState.ChangeLocation(CardState.Location.Graveyard);
+        owner = null;
     }
 
 
@@ -94,7 +94,7 @@ public class CriminalCard : MonoBehaviour
     public void SetToPickedUpLayer() => cardUI.SetToPickedUpLayer();
     public void SetToBaseCardLayer() => cardUI.SetToBaseCardLayer();
     public void SetCardImage(Sprite sprite) => cardUI.SetCardImage(sprite);
-    public void TakeAction(Neighborhood neighborhood) => criminalType.TakeAction(neighborhood);
+    public void TakeAction() => criminalType.TakeAction();
     public void PlayCardToNeighborhood(Neighborhood neighborhood) => cardControl.PlayToNeighborhood(neighborhood);
     public bool CheckIfAICanPlay(Neighborhood neighborhood) => criminalType.CheckIfAICanPlay(neighborhood);
     public TargetRule GetTargetRule() => CriminalType.TargetRule;

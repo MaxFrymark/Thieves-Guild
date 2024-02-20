@@ -35,7 +35,7 @@ public class TurnManager : MonoBehaviour
 
     private void FastActions()
     {
-
+        playerManager.PlayersTakeFastActions();
     }
 
     private void Battles()
@@ -46,7 +46,7 @@ public class TurnManager : MonoBehaviour
     private void ResolveCriminalPlacements()
     {
         playerManager.ClearPlayerActions();
-        city.CriminalsAct();
+        playerManager.PlayersTakeActions();
     }
 
     private void ResolveMarketBids()

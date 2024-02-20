@@ -13,6 +13,9 @@ public abstract class Player
     private Color playerColor;
     public Color PlayerColor {  get { return playerColor; } }
 
+    private List<CriminalCard> activeCriminals = new List<CriminalCard>();
+    private List<CriminalCard> criminalsToSetTarget = new List<CriminalCard>();
+
     public Player(Color playerColor)
     {
         this.playerColor = playerColor;
@@ -43,32 +46,59 @@ public abstract class Player
         cardPlays.Add(play);
     }
 
-    public void SetTargetsForCardsToPlay()
+    public virtual void SetTargetsForCardsToPlay()
     {
-        foreach(CardPlay play in cardPlays)
-        {
-            
-        }
+        criminalsToSetTarget.Clear();
     }
 
     public void TakeFastActions()
     {
-        foreach (CardPlay play in cardPlays)
+        foreach(CriminalCard card in activeCriminals)
         {
-
+            if (card.CriminalType.Tags.Contains(CriminalType.CriminalTags.Fast))
+            {
+                card.CriminalType.TakeAction();
+            }
         }
     }
 
     public void TakeActions()
     {
-        foreach (CardPlay play in cardPlays)
+        foreach (CriminalCard card in activeCriminals)
         {
-
+            if (!card.CriminalType.Tags.Contains(CriminalType.CriminalTags.Fast))
+            {
+                card.CriminalType.TakeAction();
+            }
         }
     }
 
     public void ClearPlays()
     {
         cardPlays.Clear();
+    }
+
+    public void AddToActiveCriminals(CriminalCard card)
+    {
+        activeCriminals.Add(card);
+        criminalsToSetTarget.Add(card);
+    }
+
+    public void RemoveFromActiveCriminals(CriminalCard card)
+    {
+        if (activeCriminals.Contains(card))
+        {
+            activeCriminals.Remove(card);
+        }
+
+        else
+        {
+            Debug.Log("Error: Attemped to remove card from active list that wasn't in the list");
+        }
+
+        if (criminalsToSetTarget.Contains(card))
+        {
+            criminalsToSetTarget.Remove(card);
+        }
     }
 }

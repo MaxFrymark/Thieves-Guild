@@ -59,13 +59,7 @@ public class City : MonoBehaviour
         }
     }
 
-    public void CriminalsAct()
-    {
-        foreach(Neighborhood neighborhood in neighborhoods)
-        {
-            neighborhood.CriminalsAct();
-        }
-    }
+    
 
     public void RemoveCriminalFromNeighborhood(CriminalCard card)
     {
